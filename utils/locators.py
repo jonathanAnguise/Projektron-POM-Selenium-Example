@@ -13,7 +13,7 @@ class MainPageLocators(object):
 
 
 class LoginPageLocators(object):
-    EMAIL = (By.ID, 'ap_email')
+    EMAIL = (By.XPATH, "//input[@id='label_user']")
     PASSWORD = (By.ID, 'ap_password')
     SUBMIT = (By.ID, 'signInSubmit-input')
     ERROR_MESSAGE = (By.ID, 'message_error')
