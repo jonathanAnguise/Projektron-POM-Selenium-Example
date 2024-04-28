@@ -29,4 +29,4 @@ class BasePage(object):
             return WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
         except TimeoutException:
             print("\n * ELEMENT NOT FOUND WITHIN GIVEN TIME! --> %s" %(locator[1]))
-            self.driver.quit()
+            # self.driver.quit()

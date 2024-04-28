@@ -12,16 +12,14 @@ class LoginPage(BasePage):
         self.wait_element(*self.locator.EMAIL).send_keys(email)
 
     def enter_password(self, password):
-        self.find_element(*self.locator.PASSWORD).send_keys(password)
+        self.wait_element(*self.locator.PASSWORD).send_keys(password)
 
     def click_login_button(self):
         self.find_element(*self.locator.SUBMIT).click()
 
-    def login(self, user):
-        user = users.get_user(user)
-        print(user)
-        self.enter_email(user["email"])
-        self.enter_password(user["password"])
+    def login(self, user, password):
+        self.enter_email(user)
+        self.enter_password(password)
         self.click_login_button()
 
     def login_with_valid_user(self, user):
