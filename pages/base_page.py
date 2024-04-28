@@ -6,7 +6,7 @@ from selenium.common.exceptions import TimeoutException
 
 # this Base class is serving basic attributes for every single page inherited from Page class
 class BasePage(object):
-    def __init__(self, driver, base_url='https://projektron.jember.de/bcs/login'):
+    def __init__(self, driver, base_url='https://projektron.jember.de'):
         self.base_url = base_url
         self.driver = driver
         self.timeout = 30
@@ -14,7 +14,7 @@ class BasePage(object):
     def find_element(self, *locator):
         return self.driver.find_element(*locator)
 
-    def open(self, url):
+    def open(self, url=""):
         url = self.base_url + url
         self.driver.get(url)
 
@@ -26,7 +26,7 @@ class BasePage(object):
 
     def wait_element(self, *locator):
         try:
-            WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
+            return WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
         except TimeoutException:
             print("\n * ELEMENT NOT FOUND WITHIN GIVEN TIME! --> %s" %(locator[1]))
             self.driver.quit()

@@ -9,7 +9,7 @@ class LoginPage(BasePage):
         super(LoginPage, self).__init__(driver)  # Python2 version
 
     def enter_email(self, email):
-        self.find_element(*self.locator.EMAIL).send_keys(email)
+        self.wait_element(*self.locator.EMAIL).send_keys(email)
 
     def enter_password(self, password):
         self.find_element(*self.locator.PASSWORD).send_keys(password)
