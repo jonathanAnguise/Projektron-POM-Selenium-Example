@@ -39,6 +39,7 @@ class MainPageLocators:
         LOGIN: Locator for the login link.
         LOGO: Locator for the logo element.
         POP_UP_YES_BUTTON: Locator for the popup confirmation button.
+        SAVE_BUTTON: Locator for the save button.
         SEARCH: Locator for the search input field.
         SEARCH_LIST: Locator for the search results list.
         SIGNUP: Locator for the signup link.
@@ -47,9 +48,10 @@ class MainPageLocators:
         TASKS_DURATION: Locator for the tasks duration element.
         TASKS_DURATION_INPUT_HOURS: Locator for the input field for task duration hours.
         TASKS_DURATION_INPUT_MINUTES: Locator for the input field for task duration minutes.
+        UNRECORDED_EFFORTS_HOUR: Locator for the input field for unrecorded efforts hours.
+        UNRECORDED_EFFORTS_MINUTE: Locator for the input field for unrecorded efforts minutes.
     """
 
-    ACCOUNT = (By.ID, "nav-link-accountList")
     ATTANDENCE_MINUTE = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
@@ -74,19 +76,16 @@ class MainPageLocators:
         By.XPATH,
         "//a[@id='PageTab_Link_jq_dayeffortrecording']",
     )
-    LOGIN = (By.CSS_SELECTOR, "#nav-signin-tooltip > a")
-    LOGO = (By.ID, "nav-logo")
     POP_UP_YES_BUTTON = (
         By.XPATH,
         "//input[@class='button notificationPermissionConfirm defaultbutton' and \
 @type='submit' and @value='Yes']",
     )
-    SEARCH = (By.ID, "twotabsearchtextbox")
+    SAVE_BUTTON = (By.XPATH, "//input[@value='Save']")
     SEARCH_LIST = (
         By.CSS_SELECTOR,
         'div[data-component-type="s-search-result"]',
     )
-    SIGNUP = (By.CSS_SELECTOR, "#nav-signin-tooltip > div > a")
     TASKS_BUDGET = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[12]",
@@ -109,6 +108,16 @@ class MainPageLocators:
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
 /tbody/tr/td[10]//textarea",
+    )
+    UNRECORDED_EFFORTS_MINUTE = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
+/tbody/tr[4]//input[contains(@name, 'attandenceDuration_minutes')]",
+    )
+    UNRECORDED_EFFORTS_HOUR = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
+/tbody/tr[4]//input[contains(@name, 'attandenceDuration_hour')]",
     )
 
 

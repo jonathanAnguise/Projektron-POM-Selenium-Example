@@ -135,3 +135,24 @@ class MainPage(BasePage):
         """
         tasks = self.find_elements(*self.locator.TASKS_DESCRIPTION_INPUT)
         tasks[task_line].send_keys(text)
+
+    def get_unrecorded_efforts(self):
+        """
+        Get text string of unrecorded effort
+
+        Returns:
+            string: A string of unrecorded time efforts
+        """
+        unrecorded_minutes = self.find_elements(
+            *self.locator.UNRECORDED_EFFORTS_MINUTE
+        ).get_attribute("value")
+        unrecorded_hours = self.find_elements(
+            *self.locator.UNRECORDED_EFFORTS_HOUR
+        ).get_attribute("value")
+        return f"{unrecorded_hours}:{unrecorded_minutes}"
+
+    def click_on_save_button(self):
+        """
+        Click on the save button.
+        """
+        self.find_element(*self.locator.SAVE_BUTTON).click()
