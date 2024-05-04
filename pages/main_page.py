@@ -37,6 +37,12 @@ class MainPage(BasePage):
     Methods:
         validate_popup_button: Validate and click on the popup button.
         click_on_booking_tab: Click on the booking tab.
+        type_attendance_duration: Type in the attendance duration.
+        type_break_duration: Type in the break duration.
+        get_tasks_budget_list: Get a list of elements representing tasks budgets.
+        get_tasks_duration_list: Get a list of elements representing tasks durations.
+        type_task_duration: Type in the duration of a specific task.
+        type_task_description: Type in the description of a specific task.
     """
 
     def __init__(self, driver):
@@ -50,9 +56,82 @@ class MainPage(BasePage):
         super().__init__(driver)
 
     def validate_popup_button(self):
-        """Validate and click on the popup button."""
+        """
+        Validate and click on the popup button.
+        """
         self.wait_element(*self.locator.POP_UP_YES_BUTTON).click()
 
     def click_on_booking_tab(self):
-        """Click on the booking tab."""
+        """
+        Click on the booking tab.
+        """
         self.wait_element(*self.locator.DAY_BOOKING_TAB).click()
+
+    def type_attendance_duration(self, hours=8, minutes=0):
+        """
+        Type in the attendance duration in hours and minutes.
+
+        Args:
+            hours (int): The number of hours.
+            minutes (int): The number of minutes.
+        """
+        self.wait_element(*self.locator.ATTANDENCE_HOUR).send_keys(hours)
+        self.wait_element(*self.locator.ATTANDENCE_MINUTE).send_keys(minutes)
+
+    def type_break_duration(self, hours=1, minutes=0):
+        """
+        Type in the break duration in hours and minutes.
+
+        Args:
+            hours (int): The number of hours.
+            minutes (int): The number of minutes.
+        """
+        self.wait_element(*self.locator.BREAK_HOUR).send_keys(hours)
+        self.wait_element(*self.locator.BREAK_MINUTE).send_keys(minutes)
+
+    def get_tasks_budget_list(self):
+        """
+        Get a list of elements representing tasks budgets.
+
+        Returns:
+            list: A list of Selenium WebElement objects representing tasks budgets.
+        """
+        return self.find_elements(*self.locator.TASKS_BUDGET)
+
+    def get_tasks_duration_list(self):
+        """
+        Get a list of elements representing tasks durations.
+
+        Returns:
+            list: A list of Selenium WebElement objects representing tasks durations.
+        """
+        return self.find_elements(*self.locator.TASKS_DURATION)
+
+    def type_task_duration(self, task_line=1, hours=1, minutes=0):
+        """
+        Type in the duration of a specific task in hours and minutes.
+
+        Args:
+            task_line (int): The line number of the task.
+            hours (int): The number of hours.
+            minutes (int): The number of minutes.
+        """
+        tasks_hours = self.find_elements(
+            *self.locator.TASKS_DURATION_INPUT_HOURS
+        )
+        tasks_minutes = self.find_elements(
+            *self.locator.TASKS_DURATION_INPUT_MINUTES
+        )
+        tasks_minutes[task_line].send_keys(minutes)
+        tasks_hours[task_line].send_keys(hours)
+
+    def type_task_description(self, task_line=1, text="test"):
+        """
+        Type in the description of a specific task.
+
+        Args:
+            task_line (int): The line number of the task.
+            text (str): The description text.
+        """
+        tasks = self.find_elements(*self.locator.TASKS_DESCRIPTION_INPUT)
+        tasks[task_line].send_keys(text)

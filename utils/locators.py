@@ -30,33 +30,85 @@ class MainPageLocators:
     Locator class for web elements on the main page of the web application.
 
     Attributes:
-        LOGO: Locator for the logo element.
         ACCOUNT: Locator for the account link.
-        SIGNUP: Locator for the signup link.
+        ATTANDENCE_HOUR: Locator for the input field for attendance hours.
+        ATTANDENCE_MINUTE: Locator for the input field for attendance minutes.
+        BREAK_HOUR: Locator for the input field for break hours.
+        BREAK_MINUTE: Locator for the input field for break minutes.
+        DAY_BOOKING_TAB: Locator for the booking tab.
         LOGIN: Locator for the login link.
+        LOGO: Locator for the logo element.
+        POP_UP_YES_BUTTON: Locator for the popup confirmation button.
         SEARCH: Locator for the search input field.
         SEARCH_LIST: Locator for the search results list.
-        POP_UP_YES_BUTTON: Locator for the popup confirmation button.
-        DAY_BOOKING_TAB: Locator for the booking tab.
+        SIGNUP: Locator for the signup link.
+        TASKS_BUDGET: Locator for the tasks budget element.
+        TASKS_DESCRIPTION_INPUT: Locator for the textarea for task description.
+        TASKS_DURATION: Locator for the tasks duration element.
+        TASKS_DURATION_INPUT_HOURS: Locator for the input field for task duration hours.
+        TASKS_DURATION_INPUT_MINUTES: Locator for the input field for task duration minutes.
     """
 
-    LOGO = (By.ID, "nav-logo")
     ACCOUNT = (By.ID, "nav-link-accountList")
-    SIGNUP = (By.CSS_SELECTOR, "#nav-signin-tooltip > div > a")
-    LOGIN = (By.CSS_SELECTOR, "#nav-signin-tooltip > a")
-    SEARCH = (By.ID, "twotabsearchtextbox")
-    SEARCH_LIST = (
-        By.CSS_SELECTOR,
-        'div[data-component-type="s-search-result"]',
+    ATTANDENCE_MINUTE = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
+/tbody/tr[1]//input[contains(@name, 'attandenceDuration_minute')]",
     )
+    ATTANDENCE_HOUR = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
+/tbody/tr[1]//input[contains(@name, 'attandenceDuration_hour')]",
+    )
+    BREAK_MINUTE = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
+/tbody/tr[2]//input[contains(@name, 'attandenceDuration_minute')]",
+    )
+    BREAK_HOUR = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
+/tbody/tr[2]//input[contains(@name, 'attandenceDuration_hour')]",
+    )
+    DAY_BOOKING_TAB = (
+        By.XPATH,
+        "//a[@id='PageTab_Link_jq_dayeffortrecording']",
+    )
+    LOGIN = (By.CSS_SELECTOR, "#nav-signin-tooltip > a")
+    LOGO = (By.ID, "nav-logo")
     POP_UP_YES_BUTTON = (
         By.XPATH,
         "//input[@class='button notificationPermissionConfirm defaultbutton' and \
 @type='submit' and @value='Yes']",
     )
-    DAY_BOOKING_TAB = (
+    SEARCH = (By.ID, "twotabsearchtextbox")
+    SEARCH_LIST = (
+        By.CSS_SELECTOR,
+        'div[data-component-type="s-search-result"]',
+    )
+    SIGNUP = (By.CSS_SELECTOR, "#nav-signin-tooltip > div > a")
+    TASKS_BUDGET = (
         By.XPATH,
-        "//a[@id='PageTab_Link_jq_dayeffortrecording']",
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[12]",
+    )
+    TASKS_DURATION = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[13]",
+    )
+    TASKS_DURATION_INPUT_HOURS = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
+/tbody/tr/td[9]//input[1]",
+    )
+    TASKS_DURATION_INPUT_MINUTES = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
+/tbody/tr/td[9]//input[2]",
+    )
+    TASKS_DESCRIPTION_INPUT = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
+/tbody/tr/td[10]//textarea",
     )
 
 

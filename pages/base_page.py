@@ -67,6 +67,18 @@ class BasePage:
         """
         return self.driver.find_element(*locator)
 
+    def find_elements(self, *locator):
+        """
+        Find a web element using a locator.
+
+        Args:
+            *locator: Variable-length argument list representing the locator strategy and value.
+
+        Returns:
+            list of WebElement: The list of  web elements found.
+        """
+        return self.driver.find_elements(*locator)
+
     def open(self, url=""):
         """
         Open a URL in the web browser.

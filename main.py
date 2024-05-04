@@ -49,9 +49,12 @@ def main():
         user=my_secret.get("USERNAME"), password=my_secret.get("PASSWORD")
     )
     main_page = MainPage(driver)
+    main_page.validate_popup_button()
+    main_page.click_on_booking_tab()
     # breakpoint()
     main_page.validate_popup_button()
-    input()
+    main_page.type_attendance_duration(hours=7, minutes=45)
+    main_page.type_break_duration(hours=0, minutes=45)
 
 
 if __name__ == "__main__":
