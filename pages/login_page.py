@@ -53,38 +53,36 @@ class LoginPage(BasePage):
 
     def enter_email(self, email):
         """
-        Enter the password into the password input field.
+        Enter the email into the email input field.
 
         Args:
-            password (str): The password to enter.
+            email (str): The email to enter.
         """
         self.wait_element(*self.locator.EMAIL).send_keys(email)
 
     def enter_password(self, password):
         """
-        Perform login with provided credentials.
+        Enter the password into the password input field.
 
         Args:
-            user (str): The username/email.
-            password (str): The password.
+            password (str): The password to enter.
         """
         self.wait_element(*self.locator.PASSWORD).send_keys(password)
 
     def click_login_button(self):
         """
-        Enter the password into the password input field.
+        Click the login button.
 
-        Args:
-            password (str): The password to enter.
         """
         self.find_element(*self.locator.SUBMIT).click()
 
     def login(self, user, password):
         """
-        Enter the password into the password input field.
+        Log in with provided credentials.
 
         Args:
-            password (str): The password to enter.
+            user (str): The username/email.
+            password (str): The password.
         """
         self.enter_email(user)
         self.enter_password(password)
