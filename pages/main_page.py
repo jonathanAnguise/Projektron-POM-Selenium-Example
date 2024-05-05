@@ -96,18 +96,24 @@ class MainPage(BasePage):
         Get a list of elements representing tasks budgets.
 
         Returns:
-            list: A list of Selenium WebElement objects representing tasks budgets.
+            list: A list of string representing tasks budgets.
         """
-        return self.find_elements(*self.locator.TASKS_BUDGET)
+        return [
+            budget.text
+            for budget in self.find_elements(*self.locator.TASKS_BUDGET)
+        ]
 
     def get_tasks_duration_list(self):
         """
         Get a list of elements representing tasks durations.
 
         Returns:
-            list: A list of Selenium WebElement objects representing tasks durations.
+            list: A list of string representing tasks durations.
         """
-        return self.find_elements(*self.locator.TASKS_DURATION)
+        return [
+            duration.text
+            for duration in self.find_elements(*self.locator.TASKS_DURATION)
+        ]
 
     def type_task_duration(self, task_line=1, hours=1, minutes=0):
         """
@@ -145,13 +151,13 @@ class MainPage(BasePage):
         Returns:
             string: A string of unrecorded time efforts
         """
-        unrecorded_minutes = self.find_elements(
+        unrecorded_minutes = self.find_element(
             *self.locator.UNRECORDED_EFFORTS_MINUTE
         ).get_attribute("value")
-        unrecorded_hours = self.find_elements(
+        unrecorded_hours = self.find_element(
             *self.locator.UNRECORDED_EFFORTS_HOUR
         ).get_attribute("value")
-        return f"{unrecorded_hours}:{unrecorded_minutes}"
+        return f"{unrecorded_hours}:{unrecorded_minutes}h"
 
     def click_on_save_button(self):
         """

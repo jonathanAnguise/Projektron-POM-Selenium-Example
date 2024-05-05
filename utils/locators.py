@@ -112,7 +112,7 @@ class MainPageLocators:
     UNRECORDED_EFFORTS_MINUTE = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
-/tbody/tr[4]//input[contains(@name, 'attandenceDuration_minutes')]",
+/tbody/tr[4]//input[contains(@name, 'attandenceDuration_minute')]",
     )
     UNRECORDED_EFFORTS_HOUR = (
         By.XPATH,

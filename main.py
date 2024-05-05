@@ -93,7 +93,7 @@ def main():
     main_page.validate_popup_button()
     main_page.type_attendance_duration(hours=7, minutes=45)
     main_page.type_break_duration(hours=0, minutes=45)
-    breakpoint()
+    # breakpoint()
 
 
 if __name__ == "__main__":
