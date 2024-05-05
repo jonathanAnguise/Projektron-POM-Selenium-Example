@@ -114,13 +114,6 @@ class BasePage:
         Args:
             *locator: Variable-length argument list representing the locator strategy and value.
         """
-        try:
-            return WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located(locator)
-            )
-        except TimeoutException:
-            print(
-                f"\n * ELEMENT NOT FOUND WITHIN GIVEN TIME! --> {locator[1]}"
-            )
-            # self.driver.quit()
-        return None
+        return WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(locator)
+        )

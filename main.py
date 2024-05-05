@@ -81,7 +81,6 @@ def main():
         None
     """
     my_secret = dotenv_values(".env")
-    print(my_secret)
     driver = webdriver.Chrome()
     login_page = LoginPage(driver)
     login_page.open()
@@ -91,19 +90,11 @@ def main():
     main_page = MainPage(driver)
     main_page.validate_popup_button()
     main_page.click_on_booking_tab()
-    # breakpoint()
     main_page.validate_popup_button()
     main_page.type_attendance_duration(hours=7, minutes=45)
     main_page.type_break_duration(hours=0, minutes=45)
+    breakpoint()
 
 
 if __name__ == "__main__":
-    budget = parse_time_string("2d 04:00h")
-    duration = parse_time_string("2d 02:00h")
-    unrec = parse_time_string("02:00h")
-    print(f"{budget=}, {duration=}, {unrec=}")
-    print(
-        validate_resting_budget_is_enough(
-            unrecorded_effort=unrec, duration_time=duration, budget_time=budget
-        )
-    )
+    main()
