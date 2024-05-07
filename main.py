@@ -20,33 +20,27 @@ Example:
         $ python web_automation.py
 """
 
-from time import strptime, mktime
 from selenium import webdriver
 from dotenv import dotenv_values
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
 
 
-def parse_time_string(time_string) -> float:
+def parse_time_string(time_string: str) -> int:
     """
     This function is taking a string time and return a float in seconds
 
     Arguments:
         string: time string in the format "xd xx:xxh" or "xx:xx"
     Return:
-        float corresponding of the time interval in second
+        int corresponding of the time interval in second
     """
-    one_day_in_sec = 86400
-    if "d" in time_string and "h" in time_string:
-        parsed_time = (
-            mktime(strptime(time_string, "%dd %H:%Mh")) + one_day_in_sec
-        )
-
-    else:
-        parsed_time = mktime(strptime(time_string, "%H:%Mh"))
-    return parsed_time - mktime(
-        strptime("1900, 1, 1, 0, 0", "%Y, %m, %d, %H, %M")
-    )
+    seconds = 0
+    if "d" in time_string:
+        seconds += int(time_string.split("d")[0]) * 24 * 60 * 60
+    time_string_list = time_string[:-1].split()[-1].split(":")
+    seconds += int(time_string_list[0]) * 60 * 60 + int(time_string_list[1])
+    return seconds
 
 
 def validate_resting_budget_is_enough(
@@ -64,6 +58,14 @@ def validate_resting_budget_is_enough(
         bool: True if the resting budget is enough, False otherwise.
     """
     return unrecorded_effort + duration_time <= budget_time
+
+
+# def type_attendance_in_the_valid_line(main_page_object: MainPage):
+#     task_budget_list = main_page_object.get_tasks_budget_list()
+#     task_duration_list = main_page_object.get_tasks_duration_list()
+#     merge_list = [(parse_time_string(budget), parse_time_string(duration))
+# for budget, duration in zip(task_budget_list, task_duration_list)]
+#     pass
 
 
 def main():

@@ -75,7 +75,9 @@ class MainPage(BasePage):
             hours (int): The number of hours.
             minutes (int): The number of minutes.
         """
+        self.wait_element(*self.locator.ATTANDENCE_HOUR).clear()
         self.wait_element(*self.locator.ATTANDENCE_HOUR).send_keys(str(hours))
+        self.wait_element(*self.locator.ATTANDENCE_MINUTE).clear()
         self.wait_element(*self.locator.ATTANDENCE_MINUTE).send_keys(
             str(minutes)
         )
@@ -88,7 +90,9 @@ class MainPage(BasePage):
             hours (int): The number of hours.
             minutes (int): The number of minutes.
         """
+        self.wait_element(*self.locator.BREAK_HOUR).clear()
         self.wait_element(*self.locator.BREAK_HOUR).send_keys(str(hours))
+        self.wait_element(*self.locator.BREAK_MINUTE).clear()
         self.wait_element(*self.locator.BREAK_MINUTE).send_keys(str(minutes))
 
     def get_tasks_budget_list(self):

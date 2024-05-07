@@ -30,11 +30,17 @@ class TestParseTimeString(unittest.TestCase):
         """
         # Test parsing time string without days
         self.assertEqual(
+            parse_time_string("14:00h"), 50400
+        )  # 4 hours in seconds
+        self.assertEqual(
             parse_time_string("04:00h"), 14400
         )  # 4 hours in seconds
         # Test parsing time string with days and hours
         self.assertEqual(
             parse_time_string("2d 04:00h"), 187200
+        )  # 2 days and 4 hours in seconds
+        self.assertEqual(
+            parse_time_string("46d 04:00h"), 3988800
         )  # 2 days and 4 hours in seconds
 
 
