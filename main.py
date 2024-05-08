@@ -25,6 +25,12 @@ from dotenv import dotenv_values
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
 
+# def parse_days():
+#     ...
+# def parse_hours():
+#     ...
+# def parse_minutes():
+#     ...
 
 def parse_time_string(time_string: str) -> int:
     """
@@ -63,9 +69,17 @@ def validate_resting_budget_is_enough(
 # def type_attendance_in_the_valid_line(main_page_object: MainPage):
 #     task_budget_list = main_page_object.get_tasks_budget_list()
 #     task_duration_list = main_page_object.get_tasks_duration_list()
-#     merge_list = [(parse_time_string(budget), parse_time_string(duration))
-# for budget, duration in zip(task_budget_list, task_duration_list)]
-#     pass
+#     unrecorded_time = main_page_object.get_unrecorded_efforts()
+#     unrecorded_time_seconds = parse_time_string(unrecorded_time)
+# 
+#     merge_list = [(parse_time_string(budget), parse_time_string(duration)) for budget, duration in zip(task_budget_list, task_duration_list)]
+#     for index, tasks_values in enumerate(merge_list, start=0):
+#         if tasks_values[0]>= tasks_values[1] + unrecorded_time_seconds:
+#             continue
+#         else:
+#             ...
+#     ...
+
 
 
 def main():
@@ -95,7 +109,7 @@ def main():
     main_page.validate_popup_button()
     main_page.type_attendance_duration(hours=7, minutes=45)
     main_page.type_break_duration(hours=0, minutes=45)
-    # breakpoint()
+    breakpoint()
 
 
 if __name__ == "__main__":
