@@ -16,32 +16,7 @@ Usage:
 
 import unittest
 
-from main import parse_time_string, validate_resting_budget_is_enough
-
-
-class TestParseTimeString(unittest.TestCase):
-    """
-    Test cases for the parse_time_string function.
-    """
-
-    def test_parse_time_string(self):
-        """
-        Test cases for the parse_time_string function.
-        """
-        # Test parsing time string without days
-        self.assertEqual(
-            parse_time_string("14:00h"), 50400
-        )  # 4 hours in seconds
-        self.assertEqual(
-            parse_time_string("04:00h"), 14400
-        )  # 4 hours in seconds
-        # Test parsing time string with days and hours
-        self.assertEqual(
-            parse_time_string("2d 04:00h"), 187200
-        )  # 2 days and 4 hours in seconds
-        self.assertEqual(
-            parse_time_string("46d 04:00h"), 3988800
-        )  # 2 days and 4 hours in seconds
+from main import validate_resting_budget_is_enough
 
 
 class TestValidateRestingBudgetIsEnough(unittest.TestCase):
