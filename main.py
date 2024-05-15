@@ -24,15 +24,15 @@ from selenium import webdriver
 from dotenv import dotenv_values
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
-
-# from utils.time_parser import parse_time_string
+from utils.time_parser import parse_time_string, parse_hours, parse_minutes
 
 
 def validate_resting_budget_is_enough(
     unrecorded_effort, duration_time, budget_time
 ) -> bool:
     """
-    Validates if the resting budget is enough for the given duration and unrecorded effort.
+    Validates if the resting budget is enough for the given duration
+    and unrecorded effort.
 
     Args:
         unrecorded_effort (struct_time): The unrecorded effort time.
@@ -45,20 +45,43 @@ def validate_resting_budget_is_enough(
     return unrecorded_effort + duration_time <= budget_time
 
 
-# def type_attendance_in_the_valid_line(main_page_object: MainPage):
-#     task_budget_list = main_page_object.get_tasks_budget_list()
-#     task_duration_list = main_page_object.get_tasks_duration_list()
-#     unrecorded_time = main_page_object.get_unrecorded_efforts()
-#     unrecorded_time_seconds = parse_time_string(unrecorded_time)
-#
-#     merge_list = [(parse_time_string(budget), parse_time_string(duration)) for budget,\
-#       duration in zip(task_budget_list, task_duration_list)]
-#     for index, tasks_values in enumerate(merge_list, start=0):
-#         if tasks_values[0]>= tasks_values[1] + unrecorded_time_seconds:
-#             continue
-#         else:
-#             ...
-#     ...
+def type_duration_in_the_first_available_task_line(main_page_object: MainPage):
+    """
+    Type duration in the first available task line.
+
+    This function retrieves task budget, task duration, and unrecorded time
+    from the main page object.
+    It compares the total budgeted time for tasks with the sum of
+    task durations and unrecorded time.
+    If the total budgeted time exceeds the sum of durations and
+    unrecorded time for a task,
+    it types the duration of unrecorded time for that task in the main page.
+
+    Args:
+        main_page_object (MainPage): An instance of
+        the MainPage class representing the main page object.
+
+    Returns:
+        None
+    """
+    task_budget_list = main_page_object.get_tasks_budget_list()
+    task_duration_list = main_page_object.get_tasks_duration_list()
+    unrecorded_time = main_page_object.get_unrecorded_efforts()
+    unrecorded_time_seconds = parse_time_string(unrecorded_time)
+
+    merge_list = [
+        (parse_time_string(budget), parse_time_string(duration))
+        for budget, duration in zip(task_budget_list, task_duration_list)
+    ]
+    for index, tasks_values in enumerate(merge_list, start=0):
+        if tasks_values[0] <= tasks_values[1] + unrecorded_time_seconds:
+            continue
+        main_page_object.type_task_duration(
+            task_line=index,
+            hours=parse_hours(unrecorded_time)["hours"],
+            minutes=parse_minutes(unrecorded_time)["minutes"],
+        )
+        break
 
 
 def main():
