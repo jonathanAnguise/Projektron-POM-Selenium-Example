@@ -20,6 +20,7 @@ Example:
         $ python web_automation.py
 """
 
+from sys import argv
 from selenium import webdriver
 from dotenv import dotenv_values
 from pages.login_page import LoginPage
@@ -59,6 +60,15 @@ def main():
     Returns:
         None
     """
+    defaults = {
+        "hours": 9,
+        "minutes": 0,
+        "title": "TA",
+        "reference": "TA",
+        "task_description": "RACK maintenance",
+    }
+    arguments = parse_arguments(defaults)
+
     my_secret = dotenv_values(".env")
     driver = webdriver.Chrome()
     login_page = LoginPage(driver)
@@ -70,7 +80,9 @@ def main():
     main_page.validate_popup_button()
     main_page.click_on_booking_tab()
     main_page.validate_popup_button()
-    main_page.type_attendance_duration(hours=7, minutes=45)
+    main_page.type_attendance_duration(
+        hours=arguments["hours"], minutes=arguments["minutes"]
+    )
     main_page.type_break_duration(hours=0, minutes=45)
     task_index_to_input = main_page.get_first_available_task()
     unrecorded_effort_time = main_page.get_unrecorded_efforts()
@@ -84,11 +96,36 @@ def main():
         task_line=task_index_to_input,
     )
     main_page.type_task_description(
-        task_line=task_index_to_input, text="JEMBERTA-333"
+        task_line=task_index_to_input, text=arguments["task_description"]
     )
-    main_page.type_task_reference(task_line=task_index_to_input, text="TA")
-    main_page.type_task_title(task_line=task_index_to_input, text="TA")
-    # breakpoint()
+    main_page.type_task_reference(
+        task_line=task_index_to_input, text=arguments["reference"]
+    )
+    main_page.type_task_title(
+        task_line=task_index_to_input, text=arguments["title"]
+    )
+    input("Please double check and validate manually")
+
+
+def parse_arguments(defaults=None):
+    """
+    Parse command-line arguments into a dictionary.
+
+    Args:
+        defaults (dict, optional): A dictionary containing default values for
+        the arguments.
+            If provided, these defaults will be used for any arguments not
+            specified on the command line.
+            Defaults to None.
+
+    Returns:
+        dict: A dictionary containing the parsed command-line arguments.
+    """
+    arguments = defaults if defaults else {}
+    for arg in argv[1:]:
+        key, value = arg.split("=")
+        arguments[key] = value
+    return arguments
 
 
 if __name__ == "__main__":
