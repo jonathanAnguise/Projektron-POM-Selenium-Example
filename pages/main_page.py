@@ -24,6 +24,7 @@ Example:
 """
 
 from utils.locators import MainPageLocators
+from utils.time_parser import parse_time_string
 from pages.base_page import BasePage
 
 
@@ -119,7 +120,7 @@ class MainPage(BasePage):
             for duration in self.find_elements(*self.locator.TASKS_DURATION)
         ]
 
-    def type_task_duration(self, task_line=1, hours=1, minutes=0):
+    def type_task_duration(self, task_line=0, hours=1, minutes=0):
         """
         Type in the duration of a specific task in hours and minutes.
 
@@ -134,10 +135,12 @@ class MainPage(BasePage):
         tasks_minutes = self.find_elements(
             *self.locator.TASKS_DURATION_INPUT_MINUTES
         )
+        tasks_minutes[task_line].clear()
+        tasks_hours[task_line].clear()
         tasks_minutes[task_line].send_keys(minutes)
         tasks_hours[task_line].send_keys(hours)
 
-    def type_task_description(self, task_line=1, text="test"):
+    def type_task_description(self, task_line=0, text="test"):
         """
         Type in the description of a specific task.
 
@@ -146,6 +149,31 @@ class MainPage(BasePage):
             text (str): The description text.
         """
         tasks = self.find_elements(*self.locator.TASKS_DESCRIPTION_INPUT)
+        tasks[task_line].clear()
+        tasks[task_line].send_keys(text)
+
+    def type_task_reference(self, task_line=0, text="test"):
+        """
+        Type in the reference of a specific task.
+
+        Args:
+            task_line (int): The line number of the task.
+            text (str): The description text.
+        """
+        tasks = self.find_elements(*self.locator.TASKS_REFERENCE_INPUT)
+        tasks[task_line].clear()
+        tasks[task_line].send_keys(text)
+
+    def type_task_title(self, task_line=0, text="test"):
+        """
+        Type in the title of a specific task.
+
+        Args:
+            task_line (int): The line number of the task.
+            text (str): The description text.
+        """
+        tasks = self.find_elements(*self.locator.TASKS_TITLE_INPUT)
+        tasks[task_line].clear()
         tasks[task_line].send_keys(text)
 
     def get_unrecorded_efforts(self):
@@ -168,3 +196,35 @@ class MainPage(BasePage):
         Click on the save button.
         """
         self.find_element(*self.locator.SAVE_BUTTON).click()
+
+    def get_first_available_task(self) -> int:
+        """
+        Return the index of the first available task line.
+
+        This function retrieves task budget, task duration, and unrecorded time
+        from the main page.
+        It compares the total budgeted time for tasks with the sum of
+        task durations and unrecorded time.
+        If the total budgeted time exceeds the sum of durations and
+        unrecorded time for a task,
+        it returns the index of task line in the main page.
+
+        Returns:
+            int: Index of the line or -1 if now budget is available
+        """
+        task_budget_list = self.get_tasks_budget_list()
+        task_duration_list = self.get_tasks_duration_list()
+        unrecorded_time = self.get_unrecorded_efforts()
+        unrecorded_time_seconds = parse_time_string(unrecorded_time)
+        task_index = -1
+
+        merge_list = [
+            (parse_time_string(budget), parse_time_string(duration))
+            for budget, duration in zip(task_budget_list, task_duration_list)
+        ]
+        for index, tasks_values in enumerate(merge_list, start=0):
+            if tasks_values[0] <= tasks_values[1] + unrecorded_time_seconds:
+                continue
+            task_index = index
+            break
+        return task_index

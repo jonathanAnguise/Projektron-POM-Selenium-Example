@@ -24,7 +24,7 @@ from selenium import webdriver
 from dotenv import dotenv_values
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
-from utils.time_parser import parse_time_string, parse_hours, parse_minutes
+from utils.time_parser import parse_hours, parse_minutes
 
 
 def validate_resting_budget_is_enough(
@@ -43,45 +43,6 @@ def validate_resting_budget_is_enough(
         bool: True if the resting budget is enough, False otherwise.
     """
     return unrecorded_effort + duration_time <= budget_time
-
-
-def type_duration_in_the_first_available_task_line(main_page_object: MainPage):
-    """
-    Type duration in the first available task line.
-
-    This function retrieves task budget, task duration, and unrecorded time
-    from the main page object.
-    It compares the total budgeted time for tasks with the sum of
-    task durations and unrecorded time.
-    If the total budgeted time exceeds the sum of durations and
-    unrecorded time for a task,
-    it types the duration of unrecorded time for that task in the main page.
-
-    Args:
-        main_page_object (MainPage): An instance of
-        the MainPage class representing the main page object.
-
-    Returns:
-        None
-    """
-    task_budget_list = main_page_object.get_tasks_budget_list()
-    task_duration_list = main_page_object.get_tasks_duration_list()
-    unrecorded_time = main_page_object.get_unrecorded_efforts()
-    unrecorded_time_seconds = parse_time_string(unrecorded_time)
-
-    merge_list = [
-        (parse_time_string(budget), parse_time_string(duration))
-        for budget, duration in zip(task_budget_list, task_duration_list)
-    ]
-    for index, tasks_values in enumerate(merge_list, start=0):
-        if tasks_values[0] <= tasks_values[1] + unrecorded_time_seconds:
-            continue
-        main_page_object.type_task_duration(
-            task_line=index,
-            hours=parse_hours(unrecorded_time)["hours"],
-            minutes=parse_minutes(unrecorded_time)["minutes"],
-        )
-        break
 
 
 def main():
@@ -111,6 +72,22 @@ def main():
     main_page.validate_popup_button()
     main_page.type_attendance_duration(hours=7, minutes=45)
     main_page.type_break_duration(hours=0, minutes=45)
+    task_index_to_input = main_page.get_first_available_task()
+    unrecorded_effort_time = main_page.get_unrecorded_efforts()
+    unrecorded_effort_hours = parse_hours(unrecorded_effort_time)["hours"]
+    unrecorded_effort_minutes = parse_minutes(unrecorded_effort_time)[
+        "minutes"
+    ]
+    main_page.type_task_duration(
+        hours=unrecorded_effort_hours,
+        minutes=unrecorded_effort_minutes,
+        task_line=task_index_to_input,
+    )
+    main_page.type_task_description(
+        task_line=task_index_to_input, text="JEMBERTA-333"
+    )
+    main_page.type_task_reference(task_line=task_index_to_input, text="TA")
+    main_page.type_task_title(task_line=task_index_to_input, text="TA")
     # breakpoint()
 
 

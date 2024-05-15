@@ -109,6 +109,14 @@ class MainPageLocators:
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
 /tbody/tr/td[10]//textarea",
     )
+    TASKS_TITLE_INPUT = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']//td[6]//input",
+    )
+    TASKS_REFERENCE_INPUT = (
+        By.XPATH,
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']//td[5]//input",
+    )
     UNRECORDED_EFFORTS_MINUTE = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
