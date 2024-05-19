@@ -4,6 +4,7 @@ Module: time_parser
 This module provides functions for parsing time strings and converting them into seconds.
 """
 
+from typing import Dict
 from dataclasses import dataclass
 
 
@@ -47,7 +48,7 @@ def parse_days(time_string: str) -> dict:
     return {"days": days, "equivalent_seconds": seconds}
 
 
-def parse_hours(time_string: str) -> dict:
+def parse_hours(time_string: str) -> Dict[str, int]:
     """
     Parse a time string and return the corresponding time interval in hours and seconds.
 
