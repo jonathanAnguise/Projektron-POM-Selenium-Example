@@ -22,4 +22,4 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         export PYTHONPATH=.
-        pylint **/*.py
+        pylint **/*.py --disable=R0902
