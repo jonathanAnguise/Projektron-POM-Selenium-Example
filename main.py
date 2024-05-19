@@ -20,13 +20,36 @@ Example:
         $ python web_automation.py
 """
 
-from sys import argv
+import sys
 from typing import Dict, Optional, Union
 from selenium import webdriver
 from dotenv import dotenv_values
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
 from utils.time_parser import parse_hours, parse_minutes
+
+
+def parse_arguments(
+    defaults: Optional[Dict[str, Union[int, str]]] = None
+) -> Dict[str, Union[int, str]]:
+    """
+    Parse command-line arguments into a dictionary.
+
+    Args:
+        defaults (dict, optional): A dictionary containing default values for
+        the arguments.
+            If provided, these defaults will be used for any arguments not
+            specified on the command line.
+            Defaults to None.
+
+    Returns:
+        dict: A dictionary containing the parsed command-line arguments.
+    """
+    arguments: Dict[str, Union[int, str]] = defaults if defaults else {}
+    for arg in sys.argv[1:]:
+        key, value = arg.split("=")
+        arguments[key] = value
+    return arguments
 
 
 def main() -> None:
@@ -50,22 +73,35 @@ def main() -> None:
         "reference": "TA",
         "task_description": "RACK maintenance",
     }
-    arguments: dict = parse_arguments(defaults)
+    arguments: Dict[str, Union[int, str]] = parse_arguments(defaults)
 
-    my_secret: dict = dotenv_values(".env")
+    my_secret: Dict[str, Union[str, None]] = dotenv_values(".env")
     driver: webdriver.Chrome = webdriver.Chrome()
     login_page: LoginPage = LoginPage(driver)
     login_page.open()
-    login_page.login(
-        user=my_secret.get("USERNAME"), password=my_secret.get("PASSWORD")
-    )
+    if isinstance(my_secret.get("USERNAME"), str) and isinstance(
+        my_secret.get("PASSWORD"), str
+    ):
+        login_page.login(
+            user=str(my_secret.get("USERNAME")),
+            password=str(my_secret.get("PASSWORD")),
+        )
+    else:
+        print("Credentials are not valid")
+        sys.exit(1)
     main_page: MainPage = MainPage(driver)
     main_page.validate_popup_button()
     main_page.click_on_booking_tab()
     main_page.validate_popup_button()
-    main_page.type_attendance_duration(
-        hours=arguments["hours"], minutes=arguments["minutes"]
-    )
+    if isinstance(arguments["hours"], int) and isinstance(
+        arguments["minutes"], int
+    ):
+        main_page.type_attendance_duration(
+            hours=int(arguments["hours"]), minutes=int(arguments["minutes"])
+        )
+    else:
+        print("arguments are incorrect")
+        sys.exit(1)
     main_page.type_break_duration(hours=0, minutes=45)
     task_index_to_input: int = main_page.get_first_available_task()
     unrecorded_effort_time: str = main_page.get_unrecorded_efforts()
@@ -78,8 +114,16 @@ def main() -> None:
         minutes=unrecorded_effort_minutes,
         task_line=task_index_to_input,
     )
+    if not (
+        isinstance(arguments["task_description"], str)
+        and isinstance(arguments["reference"], str)
+        and isinstance(arguments["title"], str)
+    ):
+        print("arguments not valid")
+        sys.exit(1)
     main_page.type_task_description(
-        task_line=task_index_to_input, text=arguments["task_description"]
+        task_line=task_index_to_input,
+        text=str(arguments["task_description"]),
     )
     main_page.type_task_reference(
         task_line=task_index_to_input, text=arguments["reference"]
@@ -88,29 +132,6 @@ def main() -> None:
         task_line=task_index_to_input, text=arguments["title"]
     )
     input("Please double check and validate manually")
-
-
-def parse_arguments(
-    defaults: Optional[Dict[str, Union[int, str]]] = None
-) -> dict:
-    """
-    Parse command-line arguments into a dictionary.
-
-    Args:
-        defaults (dict, optional): A dictionary containing default values for
-        the arguments.
-            If provided, these defaults will be used for any arguments not
-            specified on the command line.
-            Defaults to None.
-
-    Returns:
-        dict: A dictionary containing the parsed command-line arguments.
-    """
-    arguments: Dict[str, Union[int, str]] = defaults if defaults else {}
-    for arg in argv[1:]:
-        key, value = arg.split("=")
-        arguments[key] = value
-    return arguments
 
 
 if __name__ == "__main__":

@@ -60,13 +60,13 @@ class MainPage(BasePage):
         """
         Validate and click on the popup button.
         """
-        self.wait_element(*self.locator.POP_UP_YES_BUTTON).click()
+        self.wait_element(self.locator.pop_up_yes_button).click()
 
     def click_on_booking_tab(self):
         """
         Click on the booking tab.
         """
-        self.wait_element(*self.locator.DAY_BOOKING_TAB).click()
+        self.wait_element(self.locator.day_booking_tab).click()
 
     def type_attendance_duration(self, hours=8, minutes=0):
         """
@@ -76,10 +76,10 @@ class MainPage(BasePage):
             hours (int): The number of hours.
             minutes (int): The number of minutes.
         """
-        self.wait_element(*self.locator.ATTANDENCE_HOUR).clear()
-        self.wait_element(*self.locator.ATTANDENCE_HOUR).send_keys(str(hours))
-        self.wait_element(*self.locator.ATTANDENCE_MINUTE).clear()
-        self.wait_element(*self.locator.ATTANDENCE_MINUTE).send_keys(
+        self.wait_element(self.locator.attandence_hour).clear()
+        self.wait_element(self.locator.attandence_hour).send_keys(str(hours))
+        self.wait_element(self.locator.attandence_minute).clear()
+        self.wait_element(self.locator.attandence_minute).send_keys(
             str(minutes)
         )
 
@@ -91,10 +91,10 @@ class MainPage(BasePage):
             hours (int): The number of hours.
             minutes (int): The number of minutes.
         """
-        self.wait_element(*self.locator.BREAK_HOUR).clear()
-        self.wait_element(*self.locator.BREAK_HOUR).send_keys(str(hours))
-        self.wait_element(*self.locator.BREAK_MINUTE).clear()
-        self.wait_element(*self.locator.BREAK_MINUTE).send_keys(str(minutes))
+        self.wait_element(self.locator.break_hour).clear()
+        self.wait_element(self.locator.break_hour).send_keys(str(hours))
+        self.wait_element(self.locator.break_minute).clear()
+        self.wait_element(self.locator.break_minute).send_keys(str(minutes))
 
     def get_tasks_budget_list(self):
         """
@@ -105,7 +105,7 @@ class MainPage(BasePage):
         """
         return [
             budget.text
-            for budget in self.find_elements(*self.locator.TASKS_BUDGET)
+            for budget in self.find_elements(*self.locator.tasks_budget)
         ]
 
     def get_tasks_duration_list(self):
@@ -117,7 +117,7 @@ class MainPage(BasePage):
         """
         return [
             duration.text
-            for duration in self.find_elements(*self.locator.TASKS_DURATION)
+            for duration in self.find_elements(*self.locator.tasks_duration)
         ]
 
     def type_task_duration(self, task_line=0, hours=1, minutes=0):
@@ -130,10 +130,10 @@ class MainPage(BasePage):
             minutes (int): The number of minutes.
         """
         tasks_hours = self.find_elements(
-            *self.locator.TASKS_DURATION_INPUT_HOURS
+            *self.locator.tasks_duration_input_hours
         )
         tasks_minutes = self.find_elements(
-            *self.locator.TASKS_DURATION_INPUT_MINUTES
+            *self.locator.tasks_duration_input_minutes
         )
         tasks_minutes[task_line].clear()
         tasks_hours[task_line].clear()
@@ -148,7 +148,7 @@ class MainPage(BasePage):
             task_line (int): The line number of the task.
             text (str): The description text.
         """
-        tasks = self.find_elements(*self.locator.TASKS_DESCRIPTION_INPUT)
+        tasks = self.find_elements(*self.locator.tasks_description_input)
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
 
@@ -160,7 +160,7 @@ class MainPage(BasePage):
             task_line (int): The line number of the task.
             text (str): The description text.
         """
-        tasks = self.find_elements(*self.locator.TASKS_REFERENCE_INPUT)
+        tasks = self.find_elements(*self.locator.tasks_reference_input)
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
 
@@ -172,7 +172,7 @@ class MainPage(BasePage):
             task_line (int): The line number of the task.
             text (str): The description text.
         """
-        tasks = self.find_elements(*self.locator.TASKS_TITLE_INPUT)
+        tasks = self.find_elements(*self.locator.tasks_title_input)
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
 
@@ -184,10 +184,10 @@ class MainPage(BasePage):
             string: A string of unrecorded time efforts
         """
         unrecorded_minutes = self.find_element(
-            *self.locator.UNRECORDED_EFFORTS_MINUTE
+            *self.locator.unrecorded_efforts_minute
         ).get_attribute("value")
         unrecorded_hours = self.find_element(
-            *self.locator.UNRECORDED_EFFORTS_HOUR
+            *self.locator.unrecorded_efforts_hour
         ).get_attribute("value")
         return f"{unrecorded_hours}:{unrecorded_minutes}h"
 
@@ -195,7 +195,7 @@ class MainPage(BasePage):
         """
         Click on the save button.
         """
-        self.find_element(*self.locator.SAVE_BUTTON).click()
+        self.find_element(*self.locator.save_button).click()
 
     def get_first_available_task(self) -> int:
         """

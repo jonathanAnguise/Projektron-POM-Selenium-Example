@@ -21,6 +21,7 @@ Example:
 """
 
 from dataclasses import dataclass
+from typing import Tuple
 from selenium.webdriver.common.by import By
 
 
@@ -52,77 +53,77 @@ class MainPageLocators:
         UNRECORDED_EFFORTS_MINUTE: Locator for the input field for unrecorded efforts minutes.
     """
 
-    ATTANDENCE_MINUTE = (
+    attandence_minute: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[1]//input[contains(@name, 'attandenceDuration_minute')]",
     )
-    ATTANDENCE_HOUR = (
+    attandence_hour: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[1]//input[contains(@name, 'attandenceDuration_hour')]",
     )
-    BREAK_MINUTE = (
+    break_minute: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[2]//input[contains(@name, 'attandenceDuration_minute')]",
     )
-    BREAK_HOUR = (
+    break_hour: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[2]//input[contains(@name, 'attandenceDuration_hour')]",
     )
-    DAY_BOOKING_TAB = (
+    day_booking_tab: Tuple[str, str] = (
         By.XPATH,
         "//a[@id='PageTab_Link_jq_dayeffortrecording']",
     )
-    POP_UP_YES_BUTTON = (
+    pop_up_yes_button: Tuple[str, str] = (
         By.XPATH,
         "//input[@class='button notificationPermissionConfirm defaultbutton' and \
 @type='submit' and @value='Yes']",
     )
-    SAVE_BUTTON = (By.XPATH, "//input[@value='Save']")
-    SEARCH_LIST = (
+    save_button: Tuple[str, str] = (By.XPATH, "//input[@value='Save']")
+    search_list: Tuple[str, str] = (
         By.CSS_SELECTOR,
         'div[data-component-type="s-search-result"]',
     )
-    TASKS_BUDGET = (
+    tasks_budget: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[12]",
     )
-    TASKS_DURATION = (
+    tasks_duration: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[13]",
     )
-    TASKS_DURATION_INPUT_HOURS = (
+    tasks_duration_input_hours: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
 /tbody/tr/td[9]//input[1]",
     )
-    TASKS_DURATION_INPUT_MINUTES = (
+    tasks_duration_input_minutes: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
 /tbody/tr/td[9]//input[2]",
     )
-    TASKS_DESCRIPTION_INPUT = (
+    tasks_description_input: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
 /tbody/tr/td[10]//textarea",
     )
-    TASKS_TITLE_INPUT = (
+    tasks_title_input: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']//td[6]//input",
     )
-    TASKS_REFERENCE_INPUT = (
+    tasks_reference_input: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']//td[5]//input",
     )
-    UNRECORDED_EFFORTS_MINUTE = (
+    unrecorded_efforts_minute: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[4]//input[contains(@name, 'attandenceDuration_minute')]",
     )
-    UNRECORDED_EFFORTS_HOUR = (
+    unrecorded_efforts_hour: Tuple[str, str] = (
         By.XPATH,
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[4]//input[contains(@name, 'attandenceDuration_hour')]",
@@ -141,7 +142,7 @@ class LoginPageLocators:
         ERROR_MESSAGE: Locator for the error message element.
     """
 
-    EMAIL = (By.XPATH, "//input[@id='label_user']")
-    PASSWORD = (By.XPATH, "//input[@id='label_pwd']")
-    SUBMIT = (By.XPATH, "//input[@id='loginbutton']")
-    ERROR_MESSAGE = (By.ID, "message_error")
+    email: Tuple[str, str] = (By.XPATH, "//input[@id='label_user']")
+    password: Tuple[str, str] = (By.XPATH, "//input[@id='label_pwd']")
+    submit: Tuple[str, str] = (By.XPATH, "//input[@id='loginbutton']")
+    error_message: Tuple[str, str] = (By.ID, "message_error")

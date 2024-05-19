@@ -20,6 +20,9 @@ Example:
 
 """
 
+from typing import List, Tuple
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -41,7 +44,9 @@ class BasePage:
         wait_element: Wait for an element to be located on the page.
     """
 
-    def __init__(self, driver, base_url="https://projektron.jember.de"):
+    def __init__(
+        self, driver: WebDriver, base_url: str = "https://projektron.jember.de"
+    ):
         """
         Initialize the BasePage.
 
@@ -50,11 +55,11 @@ class BasePage:
             base_url (str, optional): The base URL of the web application.
                         Default is "https://projektron.jember.de".
         """
-        self.base_url = base_url
-        self.driver = driver
-        self.timeout = 30
+        self.base_url: str = base_url
+        self.driver: WebDriver = driver
+        self.timeout: int = 30
 
-    def find_element(self, *locator):
+    def find_element(self, *locator: str) -> WebElement:
         """
         Find a web element using a locator.
 
@@ -66,7 +71,7 @@ class BasePage:
         """
         return self.driver.find_element(*locator)
 
-    def find_elements(self, *locator):
+    def find_elements(self, *locator) -> List[WebElement]:
         """
         Find a web element using a locator.
 
@@ -78,17 +83,16 @@ class BasePage:
         """
         return self.driver.find_elements(*locator)
 
-    def open(self, url=""):
+    def open(self, url: str = "") -> None:
         """
         Open a URL in the web browser.
 
         Args:
             url (str, optional): The URL to open. Default is an empty string.
         """
-        url = self.base_url + url
-        self.driver.get(url)
+        self.driver.get(self.base_url + url)
 
-    def get_title(self):
+    def get_title(self) -> str:
         """
         Get the title of the current web page.
 
@@ -97,7 +101,7 @@ class BasePage:
         """
         return self.driver.title
 
-    def get_url(self):
+    def get_url(self) -> str:
         """
         Get the URL of the current web page.
 
@@ -106,7 +110,7 @@ class BasePage:
         """
         return self.driver.current_url
 
-    def wait_element(self, *locator):
+    def wait_element(self, locator: Tuple[str, str]) -> WebElement:
         """
         Wait for an element to be located on the page.
 
