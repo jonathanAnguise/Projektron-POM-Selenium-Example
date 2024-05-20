@@ -93,9 +93,10 @@ def main() -> None:
     main_page.validate_popup_button()
     main_page.click_on_booking_tab()
     main_page.validate_popup_button()
-    if not (isinstance(arguments["hours"], int) and isinstance(
-        arguments["minutes"], int
-    )):
+    if not (
+        isinstance(arguments["hours"], int)
+        and isinstance(arguments["minutes"], int)
+    ):
         print("arguments are incorrect")
         sys.exit(1)
     main_page.type_attendance_duration(

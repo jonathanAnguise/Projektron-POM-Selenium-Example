@@ -28,7 +28,6 @@ from utils.locators import LoginPageLocators
 from pages.base_page import BasePage
 
 
-
 class LoginPage(BasePage):
     """
     Page class representing the login page of a web application.
@@ -43,7 +42,7 @@ class LoginPage(BasePage):
         login: Perform login with provided credentials.
     """
 
-    def __init__(self, driver: WebDriver):
+    def __init__(self, driver: WebDriver) -> None:
         """
         Initialize the LoginPage.
 

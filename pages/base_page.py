@@ -46,7 +46,7 @@ class BasePage:
 
     def __init__(
         self, driver: WebDriver, base_url: str = "https://projektron.jember.de"
-    ):
+    ) -> None:
         """
         Initialize the BasePage.
 
