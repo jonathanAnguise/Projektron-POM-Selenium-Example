@@ -23,6 +23,7 @@ Example:
 
 """
 
+from selenium.webdriver.remote.webdriver import WebDriver
 from utils.locators import LoginPageLocators
 from pages.base_page import BasePage
 
@@ -41,42 +42,42 @@ class LoginPage(BasePage):
         login: Perform login with provided credentials.
     """
 
-    def __init__(self, driver):
+    def __init__(self, driver: WebDriver) -> None:
         """
         Initialize the LoginPage.
 
         Args:
             driver (WebDriver): The Selenium WebDriver instance.
         """
-        self.locator = LoginPageLocators
+        self.locator: LoginPageLocators = LoginPageLocators()
         super().__init__(driver)  # Python2 version
 
-    def enter_email(self, email):
+    def enter_email(self, email: str) -> None:
         """
         Enter the email into the email input field.
 
         Args:
             email (str): The email to enter.
         """
-        self.wait_element(*self.locator.EMAIL).send_keys(email)
+        self.wait_element(self.locator.email).send_keys(email)
 
-    def enter_password(self, password):
+    def enter_password(self, password: str) -> None:
         """
         Enter the password into the password input field.
 
         Args:
             password (str): The password to enter.
         """
-        self.wait_element(*self.locator.PASSWORD).send_keys(password)
+        self.wait_element(self.locator.password).send_keys(password)
 
-    def click_login_button(self):
+    def click_login_button(self) -> None:
         """
         Click the login button.
 
         """
-        self.find_element(*self.locator.SUBMIT).click()
+        self.find_element(*self.locator.submit).click()
 
-    def login(self, user, password):
+    def login(self, user: str, password: str) -> None:
         """
         Log in with provided credentials.
 
