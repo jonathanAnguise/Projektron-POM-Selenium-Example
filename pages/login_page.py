@@ -23,8 +23,10 @@ Example:
 
 """
 
+from selenium.webdriver.remote.webdriver import WebDriver
 from utils.locators import LoginPageLocators
 from pages.base_page import BasePage
+
 
 
 class LoginPage(BasePage):
@@ -41,7 +43,7 @@ class LoginPage(BasePage):
         login: Perform login with provided credentials.
     """
 
-    def __init__(self, driver):
+    def __init__(self, driver: WebDriver):
         """
         Initialize the LoginPage.
 
@@ -60,7 +62,7 @@ class LoginPage(BasePage):
         """
         self.wait_element(self.locator.email).send_keys(email)
 
-    def enter_password(self, password) -> None:
+    def enter_password(self, password: str) -> None:
         """
         Enter the password into the password input field.
 

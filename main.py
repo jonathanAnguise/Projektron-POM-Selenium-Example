@@ -93,15 +93,14 @@ def main() -> None:
     main_page.validate_popup_button()
     main_page.click_on_booking_tab()
     main_page.validate_popup_button()
-    if isinstance(arguments["hours"], int) and isinstance(
+    if not (isinstance(arguments["hours"], int) and isinstance(
         arguments["minutes"], int
-    ):
-        main_page.type_attendance_duration(
-            hours=int(arguments["hours"]), minutes=int(arguments["minutes"])
-        )
-    else:
+    )):
         print("arguments are incorrect")
         sys.exit(1)
+    main_page.type_attendance_duration(
+        hours=int(arguments["hours"]), minutes=int(arguments["minutes"])
+    )
     main_page.type_break_duration(hours=0, minutes=45)
     task_index_to_input: int = main_page.get_first_available_task()
     unrecorded_effort_time: str = main_page.get_unrecorded_efforts()
@@ -126,10 +125,10 @@ def main() -> None:
         text=str(arguments["task_description"]),
     )
     main_page.type_task_reference(
-        task_line=task_index_to_input, text=arguments["reference"]
+        task_line=task_index_to_input, text=str(arguments["reference"])
     )
     main_page.type_task_title(
-        task_line=task_index_to_input, text=arguments["title"]
+        task_line=task_index_to_input, text=str(arguments["title"])
     )
     input("Please double check and validate manually")
 

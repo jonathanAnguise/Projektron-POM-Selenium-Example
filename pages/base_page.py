@@ -71,7 +71,7 @@ class BasePage:
         """
         return self.driver.find_element(*locator)
 
-    def find_elements(self, *locator) -> List[WebElement]:
+    def find_elements(self, *locator: str) -> List[WebElement]:
         """
         Find a web element using a locator.
 

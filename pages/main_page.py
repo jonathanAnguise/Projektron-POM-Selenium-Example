@@ -23,10 +23,11 @@ Example:
 
 """
 
+from typing import List, Tuple
+from selenium.webdriver.remote.webdriver import WebDriver
 from utils.locators import MainPageLocators
 from utils.time_parser import parse_time_string
 from pages.base_page import BasePage
-
 
 class MainPage(BasePage):
     """
@@ -46,29 +47,29 @@ class MainPage(BasePage):
         type_task_description: Type in the description of a specific task.
     """
 
-    def __init__(self, driver):
+    def __init__(self, driver: WebDriver):
         """
         Initialize the MainPage.
 
         Args:
             driver (WebDriver): The Selenium WebDriver instance.
         """
-        self.locator = MainPageLocators
+        self.locator: MainPageLocators = MainPageLocators()
         super().__init__(driver)
 
-    def validate_popup_button(self):
+    def validate_popup_button(self) -> None:
         """
         Validate and click on the popup button.
         """
         self.wait_element(self.locator.pop_up_yes_button).click()
 
-    def click_on_booking_tab(self):
+    def click_on_booking_tab(self) -> None:
         """
         Click on the booking tab.
         """
         self.wait_element(self.locator.day_booking_tab).click()
 
-    def type_attendance_duration(self, hours=8, minutes=0):
+    def type_attendance_duration(self, hours: int =8, minutes: int=0) -> None:
         """
         Type in the attendance duration in hours and minutes.
 
@@ -83,7 +84,7 @@ class MainPage(BasePage):
             str(minutes)
         )
 
-    def type_break_duration(self, hours=1, minutes=0):
+    def type_break_duration(self, hours: int =1, minutes: int =0) -> None:
         """
         Type in the break duration in hours and minutes.
 
@@ -96,7 +97,7 @@ class MainPage(BasePage):
         self.wait_element(self.locator.break_minute).clear()
         self.wait_element(self.locator.break_minute).send_keys(str(minutes))
 
-    def get_tasks_budget_list(self):
+    def get_tasks_budget_list(self) -> List[str]:
         """
         Get a list of elements representing tasks budgets.
 
@@ -108,7 +109,7 @@ class MainPage(BasePage):
             for budget in self.find_elements(*self.locator.tasks_budget)
         ]
 
-    def get_tasks_duration_list(self):
+    def get_tasks_duration_list(self) -> List[str]:
         """
         Get a list of elements representing tasks durations.
 
@@ -120,7 +121,7 @@ class MainPage(BasePage):
             for duration in self.find_elements(*self.locator.tasks_duration)
         ]
 
-    def type_task_duration(self, task_line=0, hours=1, minutes=0):
+    def type_task_duration(self, task_line: int=0, hours: int=1, minutes: int=0) -> None:
         """
         Type in the duration of a specific task in hours and minutes.
 
@@ -129,10 +130,10 @@ class MainPage(BasePage):
             hours (int): The number of hours.
             minutes (int): The number of minutes.
         """
-        tasks_hours = self.find_elements(
+        tasks_hours: List[WebElement] = self.find_elements(
             *self.locator.tasks_duration_input_hours
         )
-        tasks_minutes = self.find_elements(
+        tasks_minutes: List[WebElement] = self.find_elements(
             *self.locator.tasks_duration_input_minutes
         )
         tasks_minutes[task_line].clear()
@@ -140,7 +141,7 @@ class MainPage(BasePage):
         tasks_minutes[task_line].send_keys(minutes)
         tasks_hours[task_line].send_keys(hours)
 
-    def type_task_description(self, task_line=0, text="test"):
+    def type_task_description(self, task_line: int=0, text: str="test") -> None:
         """
         Type in the description of a specific task.
 
@@ -148,11 +149,11 @@ class MainPage(BasePage):
             task_line (int): The line number of the task.
             text (str): The description text.
         """
-        tasks = self.find_elements(*self.locator.tasks_description_input)
+        tasks: List[WebElement]= self.find_elements(*self.locator.tasks_description_input)
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
 
-    def type_task_reference(self, task_line=0, text="test"):
+    def type_task_reference(self, task_line: int=0, text: str="test") -> None:
         """
         Type in the reference of a specific task.
 
@@ -160,11 +161,11 @@ class MainPage(BasePage):
             task_line (int): The line number of the task.
             text (str): The description text.
         """
-        tasks = self.find_elements(*self.locator.tasks_reference_input)
+        tasks: List[WebElement] = self.find_elements(*self.locator.tasks_reference_input)
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
 
-    def type_task_title(self, task_line=0, text="test"):
+    def type_task_title(self, task_line: int=0, text: str="test") -> None:
         """
         Type in the title of a specific task.
 
@@ -172,26 +173,26 @@ class MainPage(BasePage):
             task_line (int): The line number of the task.
             text (str): The description text.
         """
-        tasks = self.find_elements(*self.locator.tasks_title_input)
+        tasks: List[WebElement]= self.find_elements(*self.locator.tasks_title_input)
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
 
-    def get_unrecorded_efforts(self):
+    def get_unrecorded_efforts(self) -> str:
         """
         Get text string of unrecorded effort
 
         Returns:
             string: A string of unrecorded time efforts
         """
-        unrecorded_minutes = self.find_element(
+        unrecorded_minutes: WebElement= self.find_element(
             *self.locator.unrecorded_efforts_minute
         ).get_attribute("value")
-        unrecorded_hours = self.find_element(
+        unrecorded_hours: WebElement= self.find_element(
             *self.locator.unrecorded_efforts_hour
         ).get_attribute("value")
         return f"{unrecorded_hours}:{unrecorded_minutes}h"
 
-    def click_on_save_button(self):
+    def click_on_save_button(self) -> None:
         """
         Click on the save button.
         """
@@ -212,13 +213,13 @@ class MainPage(BasePage):
         Returns:
             int: Index of the line or -1 if now budget is available
         """
-        task_budget_list = self.get_tasks_budget_list()
-        task_duration_list = self.get_tasks_duration_list()
-        unrecorded_time = self.get_unrecorded_efforts()
-        unrecorded_time_seconds = parse_time_string(unrecorded_time)
-        task_index = -1
+        task_budget_list: List[str] = self.get_tasks_budget_list()
+        task_duration_list: List[str] = self.get_tasks_duration_list()
+        unrecorded_time: str = self.get_unrecorded_efforts()
+        unrecorded_time_seconds : int= parse_time_string(unrecorded_time)
+        task_index: int = -1
 
-        merge_list = [
+        merge_list: List[Tuple[int]] = [
             (parse_time_string(budget), parse_time_string(duration))
             for budget, duration in zip(task_budget_list, task_duration_list)
         ]

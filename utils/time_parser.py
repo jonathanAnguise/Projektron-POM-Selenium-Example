@@ -28,7 +28,7 @@ class TimeConstant:
     seconds_in_minute: int = 60
 
 
-def parse_days(time_string: str) -> dict:
+def parse_days(time_string: str) -> Dict[str, int]:
     """
     Parse a time string and return the corresponding time interval in days and seconds.
 
@@ -38,8 +38,8 @@ def parse_days(time_string: str) -> dict:
     Returns:
         dict: The time of days in days and seconds.
     """
-    days = 0
-    seconds = 0
+    days: int = 0
+    seconds: int = 0
     if "d" in time_string:
         days = int(time_string.split("d")[0])
         seconds = (
@@ -58,12 +58,12 @@ def parse_hours(time_string: str) -> Dict[str, int]:
     Returns:
         dict: The time of hours in minutes and seconds.
     """
-    hours = int(time_string[:-1].split()[-1].split(":")[0])
-    seconds = hours * TimeConstant.seconds_in_hour
+    hours: int = int(time_string[:-1].split()[-1].split(":")[0])
+    seconds: int = hours * TimeConstant.seconds_in_hour
     return {"hours": hours, "equivalent_seconds": seconds}
 
 
-def parse_minutes(time_string: str) -> dict:
+def parse_minutes(time_string: str) -> Dict[str, int]:
     """
     Parse a time string and return the corresponding time interval in minutes and seconds.
 
@@ -73,8 +73,8 @@ def parse_minutes(time_string: str) -> dict:
     Returns:
         dict: The time of minutes in minutes and seconds.
     """
-    minutes = int(time_string[:-1].split()[-1].split(":")[1])
-    seconds = minutes * TimeConstant.seconds_in_minute
+    minutes: int = int(time_string[:-1].split()[-1].split(":")[1])
+    seconds: int = minutes * TimeConstant.seconds_in_minute
     return {"minutes": minutes, "equivalent_seconds": seconds}
 
 
@@ -87,7 +87,7 @@ def parse_time_string(time_string: str) -> int:
     Return:
         int corresponding of the time interval in second
     """
-    seconds = (
+    seconds: int = (
         parse_days(time_string)["equivalent_seconds"]
         + parse_hours(time_string)["equivalent_seconds"]
         + parse_minutes(time_string)["equivalent_seconds"]
