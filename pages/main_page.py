@@ -25,6 +25,7 @@ Example:
 
 from typing import List, Tuple
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 from utils.locators import MainPageLocators
 from utils.time_parser import parse_time_string
 from pages.base_page import BasePage
