@@ -4,9 +4,6 @@ Author: Jonathan
 
 This module contains locator classes for web elements on different pages of the web application.
 
-Dependencies:
-    - selenium.webdriver.common.by.By
-
 Usage:
     This module provides locator classes for different pages of the web application.
     Each locator class contains tuples representing locators for specific web elements on the page,
@@ -21,8 +18,6 @@ Example:
 """
 
 from dataclasses import dataclass
-from typing import Tuple
-from selenium.webdriver.common.by import By
 
 
 @dataclass
@@ -53,80 +48,73 @@ class MainPageLocators:
         UNRECORDED_EFFORTS_MINUTE: Locator for the input field for unrecorded efforts minutes.
     """
 
-    attandence_minute: Tuple[str, str] = (
-        By.XPATH,
+    attandence_minute: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
-/tbody/tr[1]//input[contains(@name, 'attandenceDuration_minute')]",
+/tbody/tr[1]//input[contains(@name, 'attandenceDuration_minute')]"
     )
-    attandence_hour: Tuple[str, str] = (
-        By.XPATH,
+
+    attandence_hour: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
-/tbody/tr[1]//input[contains(@name, 'attandenceDuration_hour')]",
+/tbody/tr[1]//input[contains(@name, 'attandenceDuration_hour')]"
     )
-    break_minute: Tuple[str, str] = (
-        By.XPATH,
+
+    break_minute: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
-/tbody/tr[2]//input[contains(@name, 'attandenceDuration_minute')]",
+/tbody/tr[2]//input[contains(@name, 'attandenceDuration_minute')]"
     )
-    break_hour: Tuple[str, str] = (
-        By.XPATH,
+
+    break_hour: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
-/tbody/tr[2]//input[contains(@name, 'attandenceDuration_hour')]",
+/tbody/tr[2]//input[contains(@name, 'attandenceDuration_hour')]"
     )
-    day_booking_tab: Tuple[str, str] = (
-        By.XPATH,
-        "//a[@id='PageTab_Link_jq_dayeffortrecording']",
-    )
-    pop_up_yes_button: Tuple[str, str] = (
-        By.XPATH,
+
+    day_booking_tab: str = "//a[@id='PageTab_Link_jq_dayeffortrecording']"
+
+    pop_up_yes_button: str = (
         "//input[@class='button notificationPermissionConfirm defaultbutton' and \
-@type='submit' and @value='Yes']",
+@type='submit' and @value='Yes']"
     )
-    save_button: Tuple[str, str] = (By.XPATH, "//input[@value='Save']")
-    search_list: Tuple[str, str] = (
-        By.CSS_SELECTOR,
-        'div[data-component-type="s-search-result"]',
+
+    save_button: str = "//input[@value='Save']"
+    tasks_budget: str = (
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[12]"
     )
-    tasks_budget: Tuple[str, str] = (
-        By.XPATH,
-        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[12]",
+
+    tasks_duration: str = (
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[13]"
     )
-    tasks_duration: Tuple[str, str] = (
-        By.XPATH,
-        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[13]",
-    )
-    tasks_duration_input_hours: Tuple[str, str] = (
-        By.XPATH,
+
+    tasks_duration_input_hours: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
-/tbody/tr/td[9]//input[1]",
+/tbody/tr/td[9]//input[1]"
     )
-    tasks_duration_input_minutes: Tuple[str, str] = (
-        By.XPATH,
+
+    tasks_duration_input_minutes: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
-/tbody/tr/td[9]//input[2]",
+/tbody/tr/td[9]//input[2]"
     )
-    tasks_description_input: Tuple[str, str] = (
-        By.XPATH,
+
+    tasks_description_input: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
-/tbody/tr/td[10]//textarea",
+/tbody/tr/td[10]//textarea"
     )
-    tasks_title_input: Tuple[str, str] = (
-        By.XPATH,
-        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']//td[6]//input",
+
+    tasks_title_input: str = (
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']//td[6]//input"
     )
-    tasks_reference_input: Tuple[str, str] = (
-        By.XPATH,
-        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']//td[5]//input",
+
+    tasks_reference_input: str = (
+        "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']//td[5]//input"
     )
-    unrecorded_efforts_minute: Tuple[str, str] = (
-        By.XPATH,
+
+    unrecorded_efforts_minute: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
-/tbody/tr[4]//input[contains(@name, 'attandenceDuration_minute')]",
+/tbody/tr[4]//input[contains(@name, 'attandenceDuration_minute')]"
     )
-    unrecorded_efforts_hour: Tuple[str, str] = (
-        By.XPATH,
+
+    unrecorded_efforts_hour: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
-/tbody/tr[4]//input[contains(@name, 'attandenceDuration_hour')]",
+/tbody/tr[4]//input[contains(@name, 'attandenceDuration_hour')]"
     )
 
 
@@ -142,7 +130,6 @@ class LoginPageLocators:
         ERROR_MESSAGE: Locator for the error message element.
     """
 
-    email: Tuple[str, str] = (By.XPATH, "//input[@id='label_user']")
-    password: Tuple[str, str] = (By.XPATH, "//input[@id='label_pwd']")
-    submit: Tuple[str, str] = (By.XPATH, "//input[@id='loginbutton']")
-    error_message: Tuple[str, str] = (By.ID, "message_error")
+    email: str = "//input[@id='label_user']"
+    password: str = "//input[@id='label_pwd']"
+    submit: str = "//input[@id='loginbutton']"

@@ -20,7 +20,8 @@ Example:
 
 """
 
-from typing import List, Tuple
+from typing import List
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
@@ -71,7 +72,7 @@ class BasePage:
         """
         return self.driver.find_element(*locator)
 
-    def find_elements(self, *locator: str) -> List[WebElement]:
+    def find_element_by_xpath(self, locator: str) -> WebElement:
         """
         Find a web element using a locator.
 
@@ -79,9 +80,33 @@ class BasePage:
             *locator: Variable-length argument list representing the locator strategy and value.
 
         Returns:
+            WebElement: The web element found.
+        """
+        return self.driver.find_element(by=By.XPATH, value=locator)
+
+    def find_elements(self, *locator: str) -> List[WebElement]:
+        """
+        Find a web element using a locator.
+
+        Args:
+            locator: String of the xpath locator.
+
+        Returns:
             list of WebElement: The list of  web elements found.
         """
         return self.driver.find_elements(*locator)
+
+    def find_elements_by_xpath(self, locator: str) -> List[WebElement]:
+        """
+        Find a web element using a locator.
+
+        Args:
+            locator: String of the xpath locator.
+
+        Returns:
+            list of WebElement: The list of  web elements found.
+        """
+        return self.driver.find_elements(by=By.XPATH, value=locator)
 
     def open(self, url: str = "") -> None:
         """
@@ -110,7 +135,11 @@ class BasePage:
         """
         return self.driver.current_url
 
-    def wait_element(self, locator: Tuple[str, str]) -> WebElement:
+    def wait_element(
+        self,
+        locator: str,
+        by_method: str = By.XPATH,
+    ) -> WebElement:
         """
         Wait for an element to be located on the page.
 
@@ -118,5 +147,5 @@ class BasePage:
             *locator: Variable-length argument list representing the locator strategy and value.
         """
         return WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located(locator)
+            EC.presence_of_element_located((by_method, locator))
         )

@@ -75,7 +75,7 @@ class LoginPage(BasePage):
         Click the login button.
 
         """
-        self.find_element(*self.locator.submit).click()
+        self.find_element_by_xpath(self.locator.submit).click()
 
     def login(self, user: str, password: str) -> None:
         """

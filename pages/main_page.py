@@ -110,7 +110,9 @@ class MainPage(BasePage):
         """
         return [
             budget.text
-            for budget in self.find_elements(*self.locator.tasks_budget)
+            for budget in self.find_elements_by_xpath(
+                self.locator.tasks_budget
+            )
         ]
 
     def get_tasks_duration_list(self) -> List[str]:
@@ -122,7 +124,9 @@ class MainPage(BasePage):
         """
         return [
             duration.text
-            for duration in self.find_elements(*self.locator.tasks_duration)
+            for duration in self.find_elements_by_xpath(
+                self.locator.tasks_duration
+            )
         ]
 
     def type_task_duration(
@@ -136,11 +140,11 @@ class MainPage(BasePage):
             hours (int): The number of hours.
             minutes (int): The number of minutes.
         """
-        tasks_hours: List[WebElement] = self.find_elements(
-            *self.locator.tasks_duration_input_hours
+        tasks_hours: List[WebElement] = self.find_elements_by_xpath(
+            self.locator.tasks_duration_input_hours
         )
-        tasks_minutes: List[WebElement] = self.find_elements(
-            *self.locator.tasks_duration_input_minutes
+        tasks_minutes: List[WebElement] = self.find_elements_by_xpath(
+            self.locator.tasks_duration_input_minutes
         )
         tasks_minutes[task_line].clear()
         tasks_hours[task_line].clear()
@@ -157,8 +161,8 @@ class MainPage(BasePage):
             task_line (int): The line number of the task.
             text (str): The description text.
         """
-        tasks: List[WebElement] = self.find_elements(
-            *self.locator.tasks_description_input
+        tasks: List[WebElement] = self.find_elements_by_xpath(
+            self.locator.tasks_description_input
         )
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
@@ -173,8 +177,8 @@ class MainPage(BasePage):
             task_line (int): The line number of the task.
             text (str): The description text.
         """
-        tasks: List[WebElement] = self.find_elements(
-            *self.locator.tasks_reference_input
+        tasks: List[WebElement] = self.find_elements_by_xpath(
+            self.locator.tasks_reference_input
         )
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
@@ -187,8 +191,8 @@ class MainPage(BasePage):
             task_line (int): The line number of the task.
             text (str): The description text.
         """
-        tasks: List[WebElement] = self.find_elements(
-            *self.locator.tasks_title_input
+        tasks: List[WebElement] = self.find_elements_by_xpath(
+            self.locator.tasks_title_input
         )
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
@@ -201,14 +205,14 @@ class MainPage(BasePage):
             string: A string of unrecorded time efforts
         """
         unrecorded_minutes: str = (
-            self.find_element(
-                *self.locator.unrecorded_efforts_minute
+            self.find_element_by_xpath(
+                self.locator.unrecorded_efforts_minute
             ).get_attribute("value")
             or "00"
         )
         unrecorded_hours: str = (
-            self.find_element(
-                *self.locator.unrecorded_efforts_hour
+            self.find_element_by_xpath(
+                self.locator.unrecorded_efforts_hour
             ).get_attribute("value")
             or "00"
         )
@@ -218,7 +222,7 @@ class MainPage(BasePage):
         """
         Click on the save button.
         """
-        self.find_element(*self.locator.save_button).click()
+        self.find_element_by_xpath(self.locator.save_button).click()
 
     def get_first_available_task(self) -> int:
         """
