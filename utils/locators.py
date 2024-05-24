@@ -17,11 +17,10 @@ Example:
 
 """
 
-from dataclasses import dataclass
+from enum import Enum
 
 
-@dataclass
-class MainPageLocators:
+class MainPageLocators(Enum):
     """
     Locator class for web elements on the main page of the web application.
 
@@ -48,78 +47,77 @@ class MainPageLocators:
         UNRECORDED_EFFORTS_MINUTE: Locator for the input field for unrecorded efforts minutes.
     """
 
-    attandence_minute: str = (
+    ATTANDENCE_MINUTE: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[1]//input[contains(@name, 'attandenceDuration_minute')]"
     )
 
-    attandence_hour: str = (
+    ATTANDENCE_HOUR: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[1]//input[contains(@name, 'attandenceDuration_hour')]"
     )
 
-    break_minute: str = (
+    BREAK_MINUTE: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[2]//input[contains(@name, 'attandenceDuration_minute')]"
     )
 
-    break_hour: str = (
+    BREAK_HOUR: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[2]//input[contains(@name, 'attandenceDuration_hour')]"
     )
 
-    day_booking_tab: str = "//a[@id='PageTab_Link_jq_dayeffortrecording']"
+    DAY_BOOKING_TAB: str = "//a[@id='PageTab_Link_jq_dayeffortrecording']"
 
-    pop_up_yes_button: str = (
+    POP_UP_YES_BUTTON: str = (
         "//input[@class='button notificationPermissionConfirm defaultbutton' and \
 @type='submit' and @value='Yes']"
     )
 
-    save_button: str = "//input[@value='Save']"
-    tasks_budget: str = (
+    SAVE_BUTTON: str = "//input[@value='Save']"
+    TASKS_BUDGET: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[12]"
     )
 
-    tasks_duration: str = (
+    TASKS_DURATION: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']/tbody/tr/td[13]"
     )
 
-    tasks_duration_input_hours: str = (
+    TASKS_DURATION_INPUT_HOURS: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
 /tbody/tr/td[9]//input[1]"
     )
 
-    tasks_duration_input_minutes: str = (
+    TASKS_DURATION_INPUT_MINUTES: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
 /tbody/tr/td[9]//input[2]"
     )
 
-    tasks_description_input: str = (
+    TASKS_DESCRIPTION_INPUT: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']\
 /tbody/tr/td[10]//textarea"
     )
 
-    tasks_title_input: str = (
+    TASKS_TITLE_INPUT: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']//td[6]//input"
     )
 
-    tasks_reference_input: str = (
+    TASKS_REFERENCE_INPUT: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingTaskList_table']//td[5]//input"
     )
 
-    unrecorded_efforts_minute: str = (
+    UNRECORDED_EFFORTS_MINUTE: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[4]//input[contains(@name, 'attandenceDuration_minute')]"
     )
 
-    unrecorded_efforts_hour: str = (
+    UNRECORDED_EFFORTS_HOUR: str = (
         "//table[@id='daytimerecording,Content,daytimerecordingAttendance_table']\
 /tbody/tr[4]//input[contains(@name, 'attandenceDuration_hour')]"
     )
 
 
-@dataclass
-class LoginPageLocators:
+class LoginPageLocators(Enum):
     """
     Locator class for web elements on the login page of the web application.
 
@@ -130,6 +128,6 @@ class LoginPageLocators:
         ERROR_MESSAGE: Locator for the error message element.
     """
 
-    email: str = "//input[@id='label_user']"
-    password: str = "//input[@id='label_pwd']"
-    submit: str = "//input[@id='loginbutton']"
+    EMAIL: str = "//input[@id='label_user']"
+    PASSWORD: str = "//input[@id='label_pwd']"
+    SUBMIT: str = "//input[@id='loginbutton']"
