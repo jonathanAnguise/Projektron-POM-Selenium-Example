@@ -56,20 +56,19 @@ class MainPage(BasePage):
         Args:
             driver (WebDriver): The Selenium WebDriver instance.
         """
-        self.locator: MainPageLocators = MainPageLocators()
         super().__init__(driver)
 
     def validate_popup_button(self) -> None:
         """
         Validate and click on the popup button.
         """
-        self.wait_element(self.locator.pop_up_yes_button).click()
+        self.wait_element(MainPageLocators.POP_UP_YES_BUTTON.value).click()
 
     def click_on_booking_tab(self) -> None:
         """
         Click on the booking tab.
         """
-        self.wait_element(self.locator.day_booking_tab).click()
+        self.wait_element(MainPageLocators.DAY_BOOKING_TAB.value).click()
 
     def type_attendance_duration(
         self, hours: int = 8, minutes: int = 0
@@ -81,10 +80,12 @@ class MainPage(BasePage):
             hours (int): The number of hours.
             minutes (int): The number of minutes.
         """
-        self.wait_element(self.locator.attandence_hour).clear()
-        self.wait_element(self.locator.attandence_hour).send_keys(str(hours))
-        self.wait_element(self.locator.attandence_minute).clear()
-        self.wait_element(self.locator.attandence_minute).send_keys(
+        self.wait_element(MainPageLocators.ATTANDENCE_HOUR.value).clear()
+        self.wait_element(MainPageLocators.ATTANDENCE_HOUR.value).send_keys(
+            str(hours)
+        )
+        self.wait_element(MainPageLocators.ATTANDENCE_MINUTE.value).clear()
+        self.wait_element(MainPageLocators.ATTANDENCE_MINUTE.value).send_keys(
             str(minutes)
         )
 
@@ -96,10 +97,14 @@ class MainPage(BasePage):
             hours (int): The number of hours.
             minutes (int): The number of minutes.
         """
-        self.wait_element(self.locator.break_hour).clear()
-        self.wait_element(self.locator.break_hour).send_keys(str(hours))
-        self.wait_element(self.locator.break_minute).clear()
-        self.wait_element(self.locator.break_minute).send_keys(str(minutes))
+        self.wait_element(MainPageLocators.BREAK_HOUR.value).clear()
+        self.wait_element(MainPageLocators.BREAK_HOUR.value).send_keys(
+            str(hours)
+        )
+        self.wait_element(MainPageLocators.BREAK_MINUTE.value).clear()
+        self.wait_element(MainPageLocators.BREAK_MINUTE.value).send_keys(
+            str(minutes)
+        )
 
     def get_tasks_budget_list(self) -> List[str]:
         """
@@ -111,7 +116,7 @@ class MainPage(BasePage):
         return [
             budget.text
             for budget in self.find_elements_by_xpath(
-                self.locator.tasks_budget
+                MainPageLocators.TASKS_BUDGET.value
             )
         ]
 
@@ -125,7 +130,7 @@ class MainPage(BasePage):
         return [
             duration.text
             for duration in self.find_elements_by_xpath(
-                self.locator.tasks_duration
+                MainPageLocators.TASKS_DURATION.value
             )
         ]
 
@@ -141,10 +146,10 @@ class MainPage(BasePage):
             minutes (int): The number of minutes.
         """
         tasks_hours: List[WebElement] = self.find_elements_by_xpath(
-            self.locator.tasks_duration_input_hours
+            MainPageLocators.TASKS_DURATION_INPUT_HOURS.value
         )
         tasks_minutes: List[WebElement] = self.find_elements_by_xpath(
-            self.locator.tasks_duration_input_minutes
+            MainPageLocators.TASKS_DURATION_INPUT_MINUTES.value
         )
         tasks_minutes[task_line].clear()
         tasks_hours[task_line].clear()
@@ -162,7 +167,7 @@ class MainPage(BasePage):
             text (str): The description text.
         """
         tasks: List[WebElement] = self.find_elements_by_xpath(
-            self.locator.tasks_description_input
+            MainPageLocators.TASKS_DESCRIPTION_INPUT.value
         )
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
@@ -178,7 +183,7 @@ class MainPage(BasePage):
             text (str): The description text.
         """
         tasks: List[WebElement] = self.find_elements_by_xpath(
-            self.locator.tasks_reference_input
+            MainPageLocators.TASKS_REFERENCE_INPUT.value
         )
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
@@ -192,7 +197,7 @@ class MainPage(BasePage):
             text (str): The description text.
         """
         tasks: List[WebElement] = self.find_elements_by_xpath(
-            self.locator.tasks_title_input
+            MainPageLocators.TASKS_TITLE_INPUT.value
         )
         tasks[task_line].clear()
         tasks[task_line].send_keys(text)
@@ -206,13 +211,13 @@ class MainPage(BasePage):
         """
         unrecorded_minutes: str = (
             self.find_element_by_xpath(
-                self.locator.unrecorded_efforts_minute
+                MainPageLocators.UNRECORDED_EFFORTS_MINUTE.value
             ).get_attribute("value")
             or "00"
         )
         unrecorded_hours: str = (
             self.find_element_by_xpath(
-                self.locator.unrecorded_efforts_hour
+                MainPageLocators.UNRECORDED_EFFORTS_HOUR.value
             ).get_attribute("value")
             or "00"
         )
@@ -222,7 +227,7 @@ class MainPage(BasePage):
         """
         Click on the save button.
         """
-        self.find_element_by_xpath(self.locator.save_button).click()
+        self.find_element_by_xpath(MainPageLocators.SAVE_BUTTON.value).click()
 
     def get_first_available_task(self) -> int:
         """

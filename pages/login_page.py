@@ -49,7 +49,6 @@ class LoginPage(BasePage):
         Args:
             driver (WebDriver): The Selenium WebDriver instance.
         """
-        self.locator: LoginPageLocators = LoginPageLocators()
         super().__init__(driver)  # Python2 version
 
     def enter_email(self, email: str) -> None:
@@ -59,7 +58,7 @@ class LoginPage(BasePage):
         Args:
             email (str): The email to enter.
         """
-        self.wait_element(self.locator.email).send_keys(email)
+        self.wait_element(LoginPageLocators.EMAIL.value).send_keys(email)
 
     def enter_password(self, password: str) -> None:
         """
@@ -68,14 +67,14 @@ class LoginPage(BasePage):
         Args:
             password (str): The password to enter.
         """
-        self.wait_element(self.locator.password).send_keys(password)
+        self.wait_element(LoginPageLocators.PASSWORD.value).send_keys(password)
 
     def click_login_button(self) -> None:
         """
         Click the login button.
 
         """
-        self.find_element_by_xpath(self.locator.submit).click()
+        self.find_element_by_xpath(LoginPageLocators.SUBMIT.value).click()
 
     def login(self, user: str, password: str) -> None:
         """
