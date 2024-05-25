@@ -34,6 +34,7 @@ Before you begin, ensure you have met the following requirements:
     touch .env
     echo "PASSWORD=Your_password" >> .env
     echo "USERNAME=Your_username" >> .env
+    echo "URL=www.example.com" >> .env
     ```
 
 2. Create and activate a virtual environment:
@@ -64,20 +65,18 @@ Before you begin, ensure you have met the following requirements:
 ## Project Structure
 ```plaintext
 projektron-pom-selenium-example
-│
-├── pages
-│   ├── base_page.py
-│   ├── login_page.py
-│   ├── main_page.py
-│
-├── utils
-│   ├── time_parser.py
-│   ├── locators.py
-|
-├── test_main.py
-├── test_time_parser.txt
-├── requirements.txt
 ├── input.bat
 ├── main.py
-└── README.md
+├── pages
+│   ├── base_page.py
+│   ├── login_page.py
+│   └── main_page.py
+├── README.md
+├── requirements.txt
+├── test_secret_manager.py
+├── test_time_parser.py
+└── utils
+    ├── locators.py
+    ├── secret_manager.py
+    └── time_parser.py
 ```

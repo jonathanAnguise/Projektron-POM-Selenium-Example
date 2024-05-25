@@ -20,7 +20,7 @@ Example:
 from enum import Enum
 
 
-class MainPageLocators(Enum):
+class MainPageLocators(str, Enum):
     """
     Locator class for web elements on the main page of the web application.
 

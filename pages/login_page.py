@@ -23,7 +23,6 @@ Example:
 
 """
 
-from selenium.webdriver.remote.webdriver import WebDriver
 from utils.locators import LoginPageLocators
 from pages.base_page import BasePage
 
@@ -41,15 +40,6 @@ class LoginPage(BasePage):
         click_login_button: Click the login button.
         login: Perform login with provided credentials.
     """
-
-    def __init__(self, driver: WebDriver) -> None:
-        """
-        Initialize the LoginPage.
-
-        Args:
-            driver (WebDriver): The Selenium WebDriver instance.
-        """
-        super().__init__(driver)  # Python2 version
 
     def enter_email(self, email: str) -> None:
         """

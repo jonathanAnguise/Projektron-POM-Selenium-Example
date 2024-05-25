@@ -26,6 +26,15 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from utils.secret_manager import (
+    get_secret_value,
+    SecretValues,
+)
+
+
+def _get_base_url() -> str:
+    base_url = get_secret_value(SecretValues.URL)
+    return base_url
 
 
 class BasePage:
@@ -45,18 +54,14 @@ class BasePage:
         wait_element: Wait for an element to be located on the page.
     """
 
-    def __init__(
-        self, driver: WebDriver, base_url: str = "https://projektron.jember.de"
-    ) -> None:
+    def __init__(self, driver: WebDriver) -> None:
         """
         Initialize the BasePage.
 
         Args:
             driver (WebDriver): The Selenium WebDriver instance.
-            base_url (str, optional): The base URL of the web application.
-                        Default is "https://projektron.jember.de".
         """
-        self.base_url: str = base_url
+        self.base_url: str = _get_base_url()
         self.driver: WebDriver = driver
         self.timeout: int = 30
 

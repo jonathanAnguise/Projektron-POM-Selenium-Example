@@ -23,10 +23,15 @@ Example:
 import sys
 from typing import Dict, Optional, Union
 from selenium import webdriver
-from dotenv import dotenv_values
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
 from utils.time_parser import parse_hours, parse_minutes
+from utils.secret_manager import (
+    MissingKeyError,
+    SecretValues,
+    get_secret_value,
+    EmptySecretsError,
+)
 
 
 def parse_arguments(
@@ -75,20 +80,27 @@ def main() -> None:
     }
     arguments: Dict[str, Union[int, str]] = parse_arguments(defaults)
 
-    my_secret: Dict[str, Union[str, None]] = dotenv_values(".env")
     driver: webdriver.Chrome = webdriver.Chrome()
     login_page: LoginPage = LoginPage(driver)
     login_page.open()
-    if isinstance(my_secret.get("USERNAME"), str) and isinstance(
-        my_secret.get("PASSWORD"), str
-    ):
-        login_page.login(
-            user=str(my_secret.get("USERNAME")),
-            password=str(my_secret.get("PASSWORD")),
-        )
-    else:
-        print("Credentials are not valid")
+    try:
+        password = get_secret_value(key=SecretValues.PASSWORD)
+        username = get_secret_value(key=SecretValues.USERNAME)
+    except MissingKeyError as e:
+        print(".env file is not set up correctly")
+        print(e.args)
         sys.exit(1)
+    except EmptySecretsError as e:
+        print(".env not found, please create it by running")
+        print("echo PASSWORD=my_password >> .env")
+        print("echo USERNAME=my_username >> .env")
+        print("echo URL=www.example.com >> .env")
+        print(e.args)
+        sys.exit(1)
+    login_page.login(
+        user=username,
+        password=password,
+    )
     main_page: MainPage = MainPage(driver)
     main_page.validate_popup_button()
     main_page.click_on_booking_tab()
