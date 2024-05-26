@@ -2,22 +2,37 @@
 Module: base_page
 Author: Jonathan
 
-This module contains a base class for web pages using Selenium for automation.
+This module provides a base class for web pages using Selenium for automation.
 
 Dependencies:
     - selenium
 
 Usage:
-    This module provides a base class `BasePage` that can be inherited by other page classes.
+    This module provides a base class ``BasePage`` that can be inherited by other page classes.
     It includes common methods for interacting with web pages such as finding elements,
     opening URLs, getting page titles and URLs, and waiting for elements to load.
 
-Example:
-    To use this module, import the `BasePage` class into your script:
-        from base_page import BasePage
+Classes:
+    - :class:`BasePage`: Base class for web pages, 
+    providing common methods for Selenium-based automation.
 
-    Then, inherit from `BasePage` in your page classes and utilize its methods.
+Functions:
+    - :func:`_get_base_url`: Retrieve the base URL from a secret manager.
 
+Attributes:
+    - **driver** (*WebDriver*): The Selenium WebDriver instance.
+    - **base_url** (*str*): The base URL of the web application.
+    - **timeout** (*int*): Timeout duration for waiting for elements to load, default is 30 seconds.
+
+Methods:
+    - :meth:`BasePage.find_element`: Find a web element using a locator.
+    - :meth:`BasePage.find_element_by_xpath`: Find a web element using an XPath locator.
+    - :meth:`BasePage.find_elements`: Find multiple web elements using a locator.
+    - :meth:`BasePage.find_elements_by_xpath`: Find multiple web elements using an XPath locator.
+    - :meth:`BasePage.open`: Open a URL in the web browser.
+    - :meth:`BasePage.get_title`: Get the title of the current web page.
+    - :meth:`BasePage.get_url`: Get the URL of the current web page.
+    - :meth:`BasePage.wait_element`: Wait for an element to be located on the page.
 """
 
 from typing import List
@@ -33,6 +48,12 @@ from utils.secret_manager import (
 
 
 def _get_base_url() -> str:
+    """
+    Retrieve the base URL from a secret manager.
+
+    :return: The base URL as a string.
+    :rtype: str
+    """
     base_url = get_secret_value(SecretValues.URL)
     return base_url
 
@@ -41,25 +62,32 @@ class BasePage:
     """
     Base class for web pages using Selenium for automation.
 
-    Attributes:
-        driver (WebDriver): The Selenium WebDriver instance.
-        base_url (str): The base URL of the web application.
-        timeout (int): Timeout duration for waiting for elements to load, default is 30 seconds.
+    :param driver: The Selenium WebDriver instance.
+    :type driver: WebDriver
 
-    Methods:
-        find_element: Find a web element using a locator.
-        open: Open a URL in the web browser.
-        get_title: Get the title of the current web page.
-        get_url: Get the URL of the current web page.
-        wait_element: Wait for an element to be located on the page.
+    :Attributes:
+        - **driver** (*WebDriver*): The Selenium WebDriver instance.
+        - **base_url** (*str*): The base URL of the web application.
+        - **timeout** (*int*): Timeout duration for waiting for elements
+        to load, default is 30 seconds.
+
+    :Methods:
+        - :meth:`find_element`: Find a web element using a locator.
+        - :meth:`find_element_by_xpath`: Find a web element using an XPath locator.
+        - :meth:`find_elements`: Find multiple web elements using a locator.
+        - :meth:`find_elements_by_xpath`: Find multiple web elements using an XPath locator.
+        - :meth:`open`: Open a URL in the web browser.
+        - :meth:`get_title`: Get the title of the current web page.
+        - :meth:`get_url`: Get the URL of the current web page.
+        - :meth:`wait_element`: Wait for an element to be located on the page.
     """
 
     def __init__(self, driver: WebDriver) -> None:
         """
         Initialize the BasePage.
 
-        Args:
-            driver (WebDriver): The Selenium WebDriver instance.
+        :param driver: The Selenium WebDriver instance.
+        :type driver: WebDriver
         """
         self.base_url: str = _get_base_url()
         self.driver: WebDriver = driver
@@ -69,47 +97,43 @@ class BasePage:
         """
         Find a web element using a locator.
 
-        Args:
-            *locator: Variable-length argument list representing the locator strategy and value.
-
-        Returns:
-            WebElement: The web element found.
+        :param locator: Variable-length argument list representing the locator strategy and value.
+        :type locator: str
+        :return: The web element found.
+        :rtype: WebElement
         """
         return self.driver.find_element(*locator)
 
     def find_element_by_xpath(self, locator: str) -> WebElement:
         """
-        Find a web element using a locator.
+        Find a web element using an XPath locator.
 
-        Args:
-            *locator: Variable-length argument list representing the locator strategy and value.
-
-        Returns:
-            WebElement: The web element found.
+        :param locator: The XPath locator.
+        :type locator: str
+        :return: The web element found.
+        :rtype: WebElement
         """
         return self.driver.find_element(by=By.XPATH, value=locator)
 
     def find_elements(self, *locator: str) -> List[WebElement]:
         """
-        Find a web element using a locator.
+        Find multiple web elements using a locator.
 
-        Args:
-            locator: String of the xpath locator.
-
-        Returns:
-            list of WebElement: The list of  web elements found.
+        :param locator: Variable-length argument list representing the locator strategy and value.
+        :type locator: str
+        :return: A list of web elements found.
+        :rtype: List[WebElement]
         """
         return self.driver.find_elements(*locator)
 
     def find_elements_by_xpath(self, locator: str) -> List[WebElement]:
         """
-        Find a web element using a locator.
+        Find multiple web elements using an XPath locator.
 
-        Args:
-            locator: String of the xpath locator.
-
-        Returns:
-            list of WebElement: The list of  web elements found.
+        :param locator: The XPath locator.
+        :type locator: str
+        :return: A list of web elements found.
+        :rtype: List[WebElement]
         """
         return self.driver.find_elements(by=By.XPATH, value=locator)
 
@@ -117,8 +141,8 @@ class BasePage:
         """
         Open a URL in the web browser.
 
-        Args:
-            url (str, optional): The URL to open. Default is an empty string.
+        :param url: The URL to open. Default is an empty string.
+        :type url: str, optional
         """
         self.driver.get(self.base_url + url)
 
@@ -126,8 +150,8 @@ class BasePage:
         """
         Get the title of the current web page.
 
-        Returns:
-            str: The title of the current web page.
+        :return: The title of the current web page.
+        :rtype: str
         """
         return self.driver.title
 
@@ -135,8 +159,8 @@ class BasePage:
         """
         Get the URL of the current web page.
 
-        Returns:
-            str: The URL of the current web page.
+        :return: The URL of the current web page.
+        :rtype: str
         """
         return self.driver.current_url
 
@@ -148,8 +172,12 @@ class BasePage:
         """
         Wait for an element to be located on the page.
 
-        Args:
-            *locator: Variable-length argument list representing the locator strategy and value.
+        :param locator: The locator of the element.
+        :type locator: str
+        :param by_method: The method to locate the element, default is By.XPATH.
+        :type by_method: str, optional
+        :return: The web element found.
+        :rtype: WebElement
         """
         return WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((by_method, locator))
