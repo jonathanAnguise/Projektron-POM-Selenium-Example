@@ -49,9 +49,10 @@ Before you begin, ensure you have met the following requirements:
     ```
 
 ## Usage
-1. Input a day (arguments are optional):
+1. Edit task_text_to_imput.txt
+2. Input a day (arguments are optional):
     ```sh
-    python main.py hours=4 minutes=36 title=great_title reference=my_ref task_description="RACK maintenance"
+    python main.py hours=4 minutes=36 title=great_title reference=my_ref
     ```
     If you don't provide arguments, the following default values will be used:
     ```python
@@ -59,13 +60,13 @@ Before you begin, ensure you have met the following requirements:
     "minutes": 0
     "title": "TA"
     "reference": "TA"
-    "task_description": "RACK maintenance"
     ```
 
 ## Project Structure
 ```plaintext
 projektron-pom-selenium-example
 ├── input.bat
+├── task_text_to_imput.txt
 ├── main.py
 ├── pages
 │   ├── base_page.py

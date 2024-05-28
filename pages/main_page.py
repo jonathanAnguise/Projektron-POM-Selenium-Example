@@ -10,17 +10,28 @@ Dependencies:
     - utils.locators.MainPageLocators
 
 Usage:
-    This module provides a class `MainPage` representing the main page of a web application.
-    It inherits from the `BasePage` class and includes methods for interacting with the main page,
+    This module provides a class ``MainPage`` representing the main page of a web application.
+    It inherits from the ``BasePage`` class and includes methods for interacting with the main page,
     such as validating popup buttons and clicking on booking tabs.
 
-Example:
-    To use this module, import the `MainPage` class into your script:
-        from main_page import MainPage
+Classes:
+    - :class:`MainPage`: Page class representing the main page,
+    providing methods for interacting with the main page.
 
-    Then, create an instance of `MainPage` and utilize its methods for interacting with
-    the main page.
-
+Methods:
+    - :meth:`MainPage.validate_popup_button`: Validate and click on the popup button.
+    - :meth:`MainPage.click_on_booking_tab`: Click on the booking tab.
+    - :meth:`MainPage.type_attendance_duration`: Type in the attendance duration.
+    - :meth:`MainPage.type_break_duration`: Type in the break duration.
+    - :meth:`MainPage.get_tasks_budget_list`: Get a list of elements representing tasks budgets.
+    - :meth:`MainPage.get_tasks_duration_list`: Get a list of elements representing tasks durations.
+    - :meth:`MainPage.type_task_duration`: Type in the duration of a specific task.
+    - :meth:`MainPage.type_task_description`: Type in the description of a specific task.
+    - :meth:`MainPage.type_task_reference`: Type in the reference of a specific task.
+    - :meth:`MainPage.type_task_title`: Type in the title of a specific task.
+    - :meth:`MainPage.get_unrecorded_efforts`: Get text string of unrecorded efforts.
+    - :meth:`MainPage.click_on_save_button`: Click on the save button.
+    - :meth:`MainPage.get_first_available_task`: Return the index of the first available task line.
 """
 
 from typing import List, Tuple
@@ -34,18 +45,23 @@ class MainPage(BasePage):
     """
     Page class representing the main page of a web application.
 
-    Attributes:
-        locator (MainPageLocators): Locators for elements on the main page.
+    :Attributes:
+        - **locator** (:class:`MainPageLocators`): Locators for elements on the main page.
 
-    Methods:
-        validate_popup_button: Validate and click on the popup button.
-        click_on_booking_tab: Click on the booking tab.
-        type_attendance_duration: Type in the attendance duration.
-        type_break_duration: Type in the break duration.
-        get_tasks_budget_list: Get a list of elements representing tasks budgets.
-        get_tasks_duration_list: Get a list of elements representing tasks durations.
-        type_task_duration: Type in the duration of a specific task.
-        type_task_description: Type in the description of a specific task.
+    :Methods:
+        - :meth:`validate_popup_button`: Validate and click on the popup button.
+        - :meth:`click_on_booking_tab`: Click on the booking tab.
+        - :meth:`type_attendance_duration`: Type in the attendance duration.
+        - :meth:`type_break_duration`: Type in the break duration.
+        - :meth:`get_tasks_budget_list`: Get a list of elements representing tasks budgets.
+        - :meth:`get_tasks_duration_list`: Get a list of elements representing tasks durations.
+        - :meth:`type_task_duration`: Type in the duration of a specific task.
+        - :meth:`type_task_description`: Type in the description of a specific task.
+        - :meth:`type_task_reference`: Type in the reference of a specific task.
+        - :meth:`type_task_title`: Type in the title of a specific task.
+        - :meth:`get_unrecorded_efforts`: Get text string of unrecorded efforts.
+        - :meth:`click_on_save_button`: Click on the save button.
+        - :meth:`get_first_available_task`: Return the index of the first available task line.
     """
 
     def validate_popup_button(self) -> None:
@@ -66,9 +82,10 @@ class MainPage(BasePage):
         """
         Type in the attendance duration in hours and minutes.
 
-        Args:
-            hours (int): The number of hours.
-            minutes (int): The number of minutes.
+        :param hours: The number of hours.
+        :type hours: int
+        :param minutes: The number of minutes.
+        :type minutes: int
         """
         self.wait_element(MainPageLocators.ATTANDENCE_HOUR).clear()
         self.wait_element(MainPageLocators.ATTANDENCE_HOUR).send_keys(
@@ -83,9 +100,10 @@ class MainPage(BasePage):
         """
         Type in the break duration in hours and minutes.
 
-        Args:
-            hours (int): The number of hours.
-            minutes (int): The number of minutes.
+        :param hours: The number of hours.
+        :type hours: int
+        :param minutes: The number of minutes.
+        :type minutes: int
         """
         self.wait_element(MainPageLocators.BREAK_HOUR).clear()
         self.wait_element(MainPageLocators.BREAK_HOUR).send_keys(str(hours))
@@ -98,8 +116,8 @@ class MainPage(BasePage):
         """
         Get a list of elements representing tasks budgets.
 
-        Returns:
-            list: A list of string representing tasks budgets.
+        :returns: A list of strings representing tasks budgets.
+        :rtype: list
         """
         return [
             budget.text
@@ -110,10 +128,10 @@ class MainPage(BasePage):
 
     def get_tasks_duration_list(self) -> List[str]:
         """
-        Get a list of elements representing tasks durations.
+        Get a list of elements representing tasks budgets.
 
-        Returns:
-            list: A list of string representing tasks durations.
+        :returns: A list of strings representing tasks budgets.
+        :rtype: list
         """
         return [
             duration.text
@@ -128,10 +146,12 @@ class MainPage(BasePage):
         """
         Type in the duration of a specific task in hours and minutes.
 
-        Args:
-            task_line (int): The line number of the task.
-            hours (int): The number of hours.
-            minutes (int): The number of minutes.
+        :param task_line: The line number of the task.
+        :type task_line: int
+        :param hours: The number of hours.
+        :type hours: int
+        :param minutes: The number of minutes.
+        :type minutes: int
         """
         tasks_hours: List[WebElement] = self.find_elements_by_xpath(
             MainPageLocators.TASKS_DURATION_INPUT_HOURS
@@ -150,9 +170,10 @@ class MainPage(BasePage):
         """
         Type in the description of a specific task.
 
-        Args:
-            task_line (int): The line number of the task.
-            text (str): The description text.
+        :param task_line: The line number of the task.
+        :type task_line: int
+        :param text: The description text.
+        :type text: str
         """
         tasks: List[WebElement] = self.find_elements_by_xpath(
             MainPageLocators.TASKS_DESCRIPTION_INPUT
@@ -166,9 +187,10 @@ class MainPage(BasePage):
         """
         Type in the reference of a specific task.
 
-        Args:
-            task_line (int): The line number of the task.
-            text (str): The description text.
+        :param task_line: The line number of the task.
+        :type task_line: int
+        :param text: The reference text.
+        :type text: str
         """
         tasks: List[WebElement] = self.find_elements_by_xpath(
             MainPageLocators.TASKS_REFERENCE_INPUT
@@ -180,9 +202,10 @@ class MainPage(BasePage):
         """
         Type in the title of a specific task.
 
-        Args:
-            task_line (int): The line number of the task.
-            text (str): The description text.
+        :param task_line: The line number of the task.
+        :type task_line: int
+        :param text: The title text.
+        :type text: str
         """
         tasks: List[WebElement] = self.find_elements_by_xpath(
             MainPageLocators.TASKS_TITLE_INPUT
@@ -192,10 +215,10 @@ class MainPage(BasePage):
 
     def get_unrecorded_efforts(self) -> str:
         """
-        Get text string of unrecorded effort
+        Get text string of unrecorded efforts.
 
-        Returns:
-            string: A string of unrecorded time efforts
+        :returns: A string of unrecorded time efforts.
+        :rtype: str
         """
         unrecorded_minutes: str = (
             self.find_element_by_xpath(
@@ -229,8 +252,8 @@ class MainPage(BasePage):
         unrecorded time for a task,
         it returns the index of task line in the main page.
 
-        Returns:
-            int: Index of the line or -1 if now budget is available
+        :returns: Index of the line or -1 if no budget is available.
+        :rtype: int
         """
         task_budget_list: List[str] = self.get_tasks_budget_list()
         task_duration_list: List[str] = self.get_tasks_duration_list()

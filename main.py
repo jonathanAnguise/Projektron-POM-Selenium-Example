@@ -33,6 +33,18 @@ from utils.secret_manager import (
     EmptySecretsError,
 )
 
+def get_task_to_input(task_file: str="./task_text_to_imput.txt") -> str:
+    """
+    Retrieve the base URL from a secret manager.
+
+    :param task_file: The path to the task_file.
+    :return: The base URL as a string.
+    :rtype: str
+    """
+    with open(task_file, encoding="utf-8") as f:
+        tasks=f.read()
+    return tasks
+
 
 def parse_arguments(
     defaults: Optional[Dict[str, Union[int, str]]] = None
@@ -76,9 +88,9 @@ def main() -> None:
         "minutes": 0,
         "title": "TA",
         "reference": "TA",
-        "task_description": "RACK maintenance",
     }
-    arguments: Dict[str, Union[int, str]] = parse_arguments(defaults)
+    task_description_import: Dict[str, str] = {"task_description": get_task_to_input()}
+    arguments: Dict[str, Union[int, str]] = {**parse_arguments(defaults), **task_description_import}
 
     driver: webdriver.Chrome = webdriver.Chrome()
     login_page: LoginPage = LoginPage(driver)

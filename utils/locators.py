@@ -9,12 +9,36 @@ Usage:
     Each locator class contains tuples representing locators for specific web elements on the page,
     using Selenium's By class for specifying locator strategies.
 
-Example:
-    To use this module, import the desired locator class into your script:
-        from locators import MainPageLocators
+Classes:
+    - :class:`MainPageLocators`: Locator class for web elements
+    on the main page of the web application.
+    - :class:`LoginPageLocators`: Locator class for web elements
+    on the login page of the web application.
 
-    Then, utilize the locator tuples within the class to locate web elements on the main page.
+Attributes for MainPageLocators:
 
+    - ``ATTANDENCE_MINUTE``: Locator for the input field for attendance minutes.
+    - ``ATTANDENCE_HOUR``: Locator for the input field for attendance hours.
+    - ``BREAK_MINUTE``: Locator for the input field for break minutes.
+    - ``BREAK_HOUR``: Locator for the input field for break hours.
+    - ``DAY_BOOKING_TAB``: Locator for the booking tab.
+    - ``POP_UP_YES_BUTTON``: Locator for the popup confirmation button.
+    - ``SAVE_BUTTON``: Locator for the save button.
+    - ``TASKS_BUDGET``: Locator for the tasks budget element.
+    - ``TASKS_DURATION``: Locator for the tasks duration element.
+    - ``TASKS_DURATION_INPUT_HOURS``: Locator for the input field for task duration hours.
+    - ``TASKS_DURATION_INPUT_MINUTES``: Locator for the input field for task duration minutes.
+    - ``TASKS_DESCRIPTION_INPUT``: Locator for the textarea for task description.
+    - ``TASKS_TITLE_INPUT``: Locator for the input field for task title.
+    - ``TASKS_REFERENCE_INPUT``: Locator for the input field for task reference.
+    - ``UNRECORDED_EFFORTS_MINUTE``: Locator for the input field for unrecorded efforts minutes.
+    - ``UNRECORDED_EFFORTS_HOUR``: Locator for the input field for unrecorded efforts hours.
+
+Attributes for LoginPageLocators:
+
+    - ``EMAIL``: Locator for the email input field.
+    - ``PASSWORD``: Locator for the password input field.
+    - ``SUBMIT``: Locator for the submit button.
 """
 
 from enum import Enum
@@ -24,27 +48,27 @@ class MainPageLocators(str, Enum):
     """
     Locator class for web elements on the main page of the web application.
 
-    Attributes:
-        ACCOUNT: Locator for the account link.
-        ATTANDENCE_HOUR: Locator for the input field for attendance hours.
-        ATTANDENCE_MINUTE: Locator for the input field for attendance minutes.
-        BREAK_HOUR: Locator for the input field for break hours.
-        BREAK_MINUTE: Locator for the input field for break minutes.
-        DAY_BOOKING_TAB: Locator for the booking tab.
-        LOGIN: Locator for the login link.
-        LOGO: Locator for the logo element.
-        POP_UP_YES_BUTTON: Locator for the popup confirmation button.
-        SAVE_BUTTON: Locator for the save button.
-        SEARCH: Locator for the search input field.
-        SEARCH_LIST: Locator for the search results list.
-        SIGNUP: Locator for the signup link.
-        TASKS_BUDGET: Locator for the tasks budget element.
-        TASKS_DESCRIPTION_INPUT: Locator for the textarea for task description.
-        TASKS_DURATION: Locator for the tasks duration element.
-        TASKS_DURATION_INPUT_HOURS: Locator for the input field for task duration hours.
-        TASKS_DURATION_INPUT_MINUTES: Locator for the input field for task duration minutes.
-        UNRECORDED_EFFORTS_HOUR: Locator for the input field for unrecorded efforts hours.
-        UNRECORDED_EFFORTS_MINUTE: Locator for the input field for unrecorded efforts minutes.
+    :Attributes:
+        - **ACCOUNT**: Locator for the account link.
+        - **ATTANDENCE_HOUR**: Locator for the input field for attendance hours.
+        - **ATTANDENCE_MINUTE**: Locator for the input field for attendance minutes.
+        - **BREAK_HOUR**: Locator for the input field for break hours.
+        - **BREAK_MINUTE**: Locator for the input field for break minutes.
+        - **DAY_BOOKING_TAB**: Locator for the booking tab.
+        - **LOGIN**: Locator for the login link.
+        - **LOGO**: Locator for the logo element.
+        - **POP_UP_YES_BUTTON**: Locator for the popup confirmation button.
+        - **SAVE_BUTTON**: Locator for the save button.
+        - **SEARCH**: Locator for the search input field.
+        - **SEARCH_LIST**: Locator for the search results list.
+        - **SIGNUP**: Locator for the signup link.
+        - **TASKS_BUDGET**: Locator for the tasks budget element.
+        - **TASKS_DESCRIPTION_INPUT**: Locator for the textarea for task description.
+        - **TASKS_DURATION**: Locator for the tasks duration element.
+        - **TASKS_DURATION_INPUT_HOURS**: Locator for the input field for task duration hours.
+        - **TASKS_DURATION_INPUT_MINUTES**: Locator for the input field for task duration minutes.
+        - **UNRECORDED_EFFORTS_HOUR**: Locator for the input field for unrecorded efforts hours.
+        - **UNRECORDED_EFFORTS_MINUTE**: Locator for the input field for unrecorded efforts minutes.
     """
 
     ATTANDENCE_MINUTE: str = (
@@ -121,11 +145,11 @@ class LoginPageLocators(Enum):
     """
     Locator class for web elements on the login page of the web application.
 
-    Attributes:
-        EMAIL: Locator for the email input field.
-        PASSWORD: Locator for the password input field.
-        SUBMIT: Locator for the submit button.
-        ERROR_MESSAGE: Locator for the error message element.
+    :Attributes:
+        - **EMAIL**: Locator for the email input field.
+        - **PASSWORD**: Locator for the password input field.
+        - **SUBMIT**: Locator for the submit button.
+        - **ERROR_MESSAGE**: Locator for the error message element.
     """
 
     EMAIL: str = "//input[@id='label_user']"
